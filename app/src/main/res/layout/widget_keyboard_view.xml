@@ -3,82 +3,85 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="bottom"
     android:background="@color/grey_dark">
 
     <LinearLayout
-    android:id="@+id/first_row"
-    app:layout_constraintTop_toTopOf="parent"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:orientation="horizontal">
+        android:id="@+id/first_row"
+        android:layout_marginHorizontal="6dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
 
-    <com.example.worderworld.widget.CustomKey
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:key_text="Q"/>
-    <com.example.worderworld.widget.CustomKey
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:key_state="1"
-        app:key_text="W"/>
-    <com.example.worderworld.widget.CustomKey
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:key_state="1"
-        app:key_text="E"/>
-    <com.example.worderworld.widget.CustomKey
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:key_state="1"
-        app:key_text="R"/>
-    <com.example.worderworld.widget.CustomKey
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:key_state="1"
-        app:key_text="T"/>
-    <com.example.worderworld.widget.CustomKey
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:key_state="1"
-        app:key_text="Y"/>
-    <com.example.worderworld.widget.CustomKey
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:key_state="1"
-        app:key_text="U"/>
-    <com.example.worderworld.widget.CustomKey
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:key_state="1"
-        app:key_text="I"/>
-    <com.example.worderworld.widget.CustomKey
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:key_state="1"
-        app:key_text="O"/>
-    <com.example.worderworld.widget.CustomKey
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        app:key_state="1"
-        app:key_text="P"/>
-</LinearLayout>
+        <com.example.worderworld.widget.CustomKey
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:key_text="Q"/>
+        <com.example.worderworld.widget.CustomKey
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:key_state="1"
+            app:key_text="W"/>
+        <com.example.worderworld.widget.CustomKey
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:key_state="1"
+            app:key_text="E"/>
+        <com.example.worderworld.widget.CustomKey
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:key_state="1"
+            app:key_text="R"/>
+        <com.example.worderworld.widget.CustomKey
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:key_state="1"
+            app:key_text="T"/>
+        <com.example.worderworld.widget.CustomKey
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:key_state="1"
+            app:key_text="Y"/>
+        <com.example.worderworld.widget.CustomKey
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:key_state="1"
+            app:key_text="U"/>
+        <com.example.worderworld.widget.CustomKey
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:key_state="1"
+            app:key_text="I"/>
+        <com.example.worderworld.widget.CustomKey
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:key_state="1"
+            app:key_text="O"/>
+        <com.example.worderworld.widget.CustomKey
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:key_state="1"
+            app:key_text="P"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/second_row"
         app:layout_constraintTop_toBottomOf="@id/first_row"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginHorizontal="6dp"
         android:orientation="horizontal">
 
         <View
@@ -149,6 +152,7 @@
         app:layout_constraintTop_toBottomOf="@id/second_row"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginHorizontal="6dp"
         android:orientation="horizontal">
 
         <View
@@ -196,10 +200,69 @@
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="M"/>
-        <View
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/delete"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"/>
+            android:layout_weight="1.5"
+            app:layout_constraintTop_toBottomOf="@id/third_row"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            app:cardCornerRadius="10dp"
+            android:elevation="0dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="@color/grey_dark"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/lime">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_backspace_24"
+                android:tint="@color/grey_light"
+                android:layout_margin="5dp"/>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/key_card"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toBottomOf="@id/third_row"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        app:cardCornerRadius="10dp"
+        android:elevation="0dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/grey_dark"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/lime">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/key_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="12dp"
+            app:autoSizeMaxTextSize="100dp"
+            app:autoSizeStepGranularity="2dp"
+            android:textColor="@color/grey_light"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:letterSpacing="0.3"
+            android:text="@string/check"
+            android:fontFamily="@font/pemanka"
+            android:textAllCaps="true"
+            android:clickable="false"
+            tools:text="w"/>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,6 +12,7 @@
     <color name="green">#397728</color>
     <color name="blue">#1A4A7E</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey_light">#D6D6D6</color>
     <color name="red">#FF0000</color>
     <color name="lime">#C9ED45</color>
     <color name="red_30">#4DFF0000</color>

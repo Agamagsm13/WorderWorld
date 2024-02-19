@@ -27,7 +27,7 @@
             app:autoSizeMinTextSize="12dp"
             app:autoSizeMaxTextSize="100dp"
             app:autoSizeStepGranularity="2dp"
-            android:textColor="@color/white"
+            android:textColor="@color/grey_light"
             android:gravity="center"
             android:layout_margin="5dp"
             android:fontFamily="@font/pemanka"

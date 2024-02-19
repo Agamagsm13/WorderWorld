@@ -88,8 +88,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ball"
-            android:layout_width="100dp"
-            android:layout_height="100dp">
+            android:layout_width="00dp"
+            android:layout_height="00dp">
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ball_image"
                 android:layout_width="match_parent"
@@ -99,6 +99,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </RelativeLayout>
+
+    <com.example.worderworld.widget.CustomKeyboard
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 

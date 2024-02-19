@@ -16,4 +16,5 @@
     <string name="buy">BUY</string>
     <string name="select">SELECT</string>
     <string name="selected_text">SELECTED</string>
+    <string name="check">Check</string>
 </resources>
