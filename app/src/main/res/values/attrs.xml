@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<resources>
+
+    <declare-styleable name="KeyboardViewStyle">
+        <attr name="keyboard_backgroundColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="KeyViewStyle">
+        <attr name="key_state" format="integer" />
+        <attr name="key_text" format="string" />
+    </declare-styleable>
+</resources>

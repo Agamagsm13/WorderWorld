@@ -1,0 +1,52 @@
+package com.example.worderworld.widget
+
+import android.content.Context
+import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import com.agamatech.worderworld.R
+import com.agamatech.worderworld.databinding.WidgetKeyViewBinding
+import com.agamatech.worderworld.databinding.WidgetKeyboardViewBinding
+
+class CustomKey @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+) : ConstraintLayout(context, attrs, defStyleAttr) {
+
+    private var binding: WidgetKeyViewBinding =
+        WidgetKeyViewBinding.inflate(LayoutInflater.from(context), this, true)
+
+    private var keyText: String?
+    private var keyState: Int?
+
+    init {
+        val array = context.obtainStyledAttributes(attrs, R.styleable.KeyViewStyle, defStyleAttr, 0)
+        keyText = array.getText(R.styleable.KeyViewStyle_key_text).toString()
+        keyState = array.getInt(R.styleable.KeyViewStyle_key_state, 0)
+        setUI()
+        array.recycle()
+    }
+
+    private fun setUI() {
+        binding.keyText.text = keyText
+        binding.keyCard.setOnClickListener {
+            Toast.makeText(context, binding.keyText.text, Toast.LENGTH_LONG).show()
+        }
+    }
+
+
+    private fun setBackgroundView(layout: View, backgroundColor: Int, corners: Int) {
+        //val shape = GradientDrawable()
+        //with(shape) {
+        //    this.shape = GradientDrawable.RECTANGLE
+        //    cornerRadius = corners.dpToPx()
+        //    setColor(backgroundColor)
+        //}
+        //layout.background = shape
+    }
+
+}
