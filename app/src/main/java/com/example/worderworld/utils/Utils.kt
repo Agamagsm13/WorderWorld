@@ -6,6 +6,7 @@ import android.content.res.Resources
 import android.net.Uri
 import android.webkit.URLUtil
 import android.widget.Toast
+import androidx.annotation.RawRes
 import androidx.core.content.ContextCompat
 
 fun <T : Number> T.dpToPx(): Float = toFloat() * Resources.getSystem().displayMetrics.density
@@ -37,3 +38,6 @@ fun getResourceId(context: Context, resourceName: String, resourceTypeName: Stri
 } catch (e: Exception) {
     null
 }
+
+fun Resources.getRawTextFile(@RawRes id: Int) =
+    openRawResource(id).bufferedReader().use { it.readText() }

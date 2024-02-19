@@ -161,21 +161,21 @@ interface ProductIdType {
 }
 
 enum class BallProduct(override val playProductId: String) : ProductIdType {
-    Ball17("ball_17"),
-    Ball18("ball_18"),
-    Ball19("ball_19_1"),
-    Ball20("ball_20"),
-    Ball5("ball_5"),
-    Ball9("ball_9_1"),
-    Ball10("ball_10"),
-    Ball11("ball_11_1"),
-    Ball12("ball_12"),
-    Ball13("ball_13"),
-    Ball14("ball_14"),
-    Ball15("ball_15"),
-    Ball16("ball_16"),
-    Ball6("ball_6"),
-    Ball7("ball_7"),
+    //Ball17("ball_17"),
+    //Ball18("ball_18"),
+    //Ball19("ball_19_1"),
+    //Ball20("ball_20"),
+    //Ball5("ball_5"),
+    //Ball9("ball_9_1"),
+    //Ball10("ball_10"),
+    //Ball11("ball_11_1"),
+    //Ball12("ball_12"),
+    //Ball13("ball_13"),
+    //Ball14("ball_14"),
+    //Ball15("ball_15"),
+    //Ball16("ball_16"),
+    //Ball6("ball_6"),
+    //Ball7("ball_7"),
     Ball8("ball_8");
 
     override val playProductType = BillingClient.ProductType.INAPP

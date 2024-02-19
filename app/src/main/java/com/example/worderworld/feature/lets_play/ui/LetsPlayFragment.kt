@@ -1,15 +1,16 @@
 package com.agamatech.worderworld.feature.lets_play.ui
 
-import android.R.attr.animation
+import android.content.res.Resources
 import android.graphics.Point
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.LinearInterpolator
+import androidx.annotation.RawRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,7 +21,10 @@ import com.agamatech.worderworld.databinding.FragmentLetsPlayBinding
 import com.agamatech.worderworld.feature.lets_play.vm.LetsPlayViewModel
 import com.agamatech.worderworld.utils.dpToPx
 import com.agamatech.worderworld.utils.getDrawableId
+import com.example.worderworld.feature.LoadWordManager
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -28,6 +32,8 @@ class LetsPlayFragment: Fragment() {
 
     private var binging: FragmentLetsPlayBinding? = null
     private val viewModel: LetsPlayViewModel by viewModels()
+    @Inject
+    lateinit var loadWordManager: LoadWordManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val b = FragmentLetsPlayBinding.inflate(inflater, container, false).also { binging = it }
@@ -48,8 +54,12 @@ class LetsPlayFragment: Fragment() {
             val height = size.y
             ball.x = width.toFloat()/2 - 50f.dpToPx()
             ball.y =  height.toFloat()/1.3f - 50f.dpToPx()
+            loadWordManager.loadWords(requireContext())
         }
     }
+
+    fun Resources.getRawTextFile(@RawRes id: Int) =
+        openRawResource(id).bufferedReader().use { it.readText() }
 
     private fun subscribeUi() {
         viewModel.apply {
@@ -72,6 +82,11 @@ class LetsPlayFragment: Fragment() {
     override fun onResume() {
         (requireActivity() as MainActivity).changeNavViewVisibility(true)
         super.onResume()
+    }
+
+    fun readFileAsLinesUsingReadLines(fileName: String): List<String> {
+        if (File(fileName).exists()) return File(fileName).readLines()
+        else return listOf()
     }
 
 }

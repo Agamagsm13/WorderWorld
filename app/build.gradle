@@ -87,7 +87,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
 
-    implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+    //implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
@@ -102,7 +102,7 @@ dependencies {
     implementation "com.android.billingclient:billing:$billing_version"
     implementation "com.android.billingclient:billing-ktx:$billing_version"
 
-    implementation 'com.google.android.gms:play-services-ads:22.2.0'
+    //implementation 'com.google.android.gms:play-services-ads:22.2.0'
 
 }
 
