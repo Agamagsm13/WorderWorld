@@ -11,4 +11,12 @@
         <attr name="key_state" format="integer" />
         <attr name="key_text" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="WordViewStyle">
+        <attr name="word_length" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="LetterViewStyle">
+        <attr name="letter_state" format="integer" />
+    </declare-styleable>
 </resources>
