@@ -11,37 +11,41 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.setFragmentResult
 import com.agamatech.worderworld.R
-import com.agamatech.worderworld.databinding.DialogInfoRulesBinding
+import com.agamatech.worderworld.databinding.DialogSureLeaveBinding
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class InfoRulesDialog: DialogFragment() {
+class LeaveDialog: DialogFragment() {
 
-    private var binding: DialogInfoRulesBinding? = null
+    private var binding: DialogSureLeaveBinding? = null
 
     override fun getTheme(): Int = R.style.NoBackgroundDialog
 
     companion object {
-        fun newInstance(): InfoRulesDialog {
-            return InfoRulesDialog().apply {
+        const val BACK_TO_HOME_KEY = "BackToHomeKey"
+        const val CLOSE_DIALOG_KEY = "CloseDialogKey"
+
+        fun newInstance(): LeaveDialog {
+            return LeaveDialog().apply {
                 arguments = bundleOf()
             }
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val b = DialogInfoRulesBinding.inflate(inflater, container, false).also { binding = it }
+        val b = DialogSureLeaveBinding.inflate(inflater, container, false).also { binding = it }
         setupView(b)
         return b.root
     }
 
-    private fun setupView(b: DialogInfoRulesBinding) {
+    private fun setupView(b: DialogSureLeaveBinding) {
         b.closeButton.setOnClickListener { dismissAllowingStateLoss() }
-        b.okButton.setOnClickListener { dismissAllowingStateLoss() }
+        b.noButton.setOnClickListener { dismissAllowingStateLoss() }
+        b.yesButton.setOnClickListener { closeWithResult() }
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -52,6 +56,16 @@ class InfoRulesDialog: DialogFragment() {
         window?.setLayout((size.x * 0.90).toInt(), WindowManager.LayoutParams.WRAP_CONTENT)
         window?.setGravity(Gravity.CENTER)
         super.onResume()
+    }
+
+    private fun closeWithResult() {
+        dismissAllowingStateLoss()
+        setResultFragment()
+    }
+
+    private fun setResultFragment() {
+        val bundle = bundleOf(BACK_TO_HOME_KEY to true)
+        setFragmentResult(CLOSE_DIALOG_KEY, bundle)
     }
 
 }

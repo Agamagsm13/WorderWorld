@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,7 +20,8 @@ import com.example.worderworld.event.CheckWordPressEvent
 import com.example.worderworld.event.DeleteLetterPressEvent
 import com.example.worderworld.event.LetterPressEvent
 import com.example.worderworld.feature.game.LetterState
-import com.example.worderworld.feature.game.ui.InfoRulesFragment
+import com.example.worderworld.feature.game.ui.InfoRulesDialog
+import com.example.worderworld.feature.game.ui.LeaveDialog
 import com.example.worderworld.feature.game.ui.LoseDialog
 import com.example.worderworld.feature.game.ui.WinDialog
 import com.example.worderworld.widget.CustomLetter
@@ -47,6 +49,17 @@ class GameFragment8: Fragment() {
     private var try6Letters: List<CustomLetter>? = null
     private var try7Letters: List<CustomLetter>? = null
     private var try8Letters: List<CustomLetter>? = null
+
+    private val backCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            handleBackButton()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, backCallback)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val b = FragmentGame8Binding.inflate(inflater, container, false).also { binging = it }
@@ -143,13 +156,18 @@ class GameFragment8: Fragment() {
             try8Letters = listOf(l80, l81, l82, l83, l84, l85, l86, l87)
             fullWordsList = listOf(try0Letters, try1Letters, try2Letters, try3Letters, try4Letters, try5Letters, try6Letters, try7Letters, try8Letters)
             buttonBack.setOnClickListener {
-                findNavController().popBackStack()
+                handleBackButton()
             }
             infoButton.setOnClickListener {
-                InfoRulesFragment.newInstance().showSingle(childFragmentManager, "Info")
+                InfoRulesDialog.newInstance().showSingle(childFragmentManager, "Info")
             }
         }
     }
+
+    fun handleBackButton() {
+        LeaveDialog.newInstance().showSingle(childFragmentManager, "Leave")
+    }
+
 
     private fun subscribeUi() {
         viewModel.activeTry.observe(viewLifecycleOwner) {
@@ -169,6 +187,7 @@ class GameFragment8: Fragment() {
 
     override fun onDestroyView() {
         EventBus.getDefault().unregister(this)
+        backCallback.isEnabled = false
         super.onDestroyView()
     }
 }

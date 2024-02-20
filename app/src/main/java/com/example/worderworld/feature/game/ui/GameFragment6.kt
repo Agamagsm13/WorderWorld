@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -12,7 +13,6 @@ import androidx.navigation.fragment.navArgs
 import com.agamatech.worderworld.MainActivity
 import com.agamatech.worderworld.R
 import com.agamatech.worderworld.databinding.FragmentGame6Binding
-import com.agamatech.worderworld.databinding.FragmentGameBinding
 import com.agamatech.worderworld.feature.game.vm.GameViewModel
 import com.agamatech.worderworld.utils.navigateSafe
 import com.agamatech.worderworld.utils.showSingle
@@ -20,7 +20,8 @@ import com.example.worderworld.event.CheckWordPressEvent
 import com.example.worderworld.event.DeleteLetterPressEvent
 import com.example.worderworld.event.LetterPressEvent
 import com.example.worderworld.feature.game.LetterState
-import com.example.worderworld.feature.game.ui.InfoRulesFragment
+import com.example.worderworld.feature.game.ui.InfoRulesDialog
+import com.example.worderworld.feature.game.ui.LeaveDialog
 import com.example.worderworld.feature.game.ui.LoseDialog
 import com.example.worderworld.feature.game.ui.WinDialog
 import com.example.worderworld.widget.CustomLetter
@@ -46,6 +47,17 @@ class GameFragment6: Fragment() {
     private var try4Letters: List<CustomLetter>? = null
     private var try5Letters: List<CustomLetter>? = null
     private var try6Letters: List<CustomLetter>? = null
+
+    private val backCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            handleBackButton()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, backCallback)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val b = FragmentGame6Binding.inflate(inflater, container, false).also { binging = it }
@@ -140,13 +152,18 @@ class GameFragment6: Fragment() {
             try6Letters = listOf(l60, l61, l62, l63, l64, l65)
             fullWordsList = listOf(try0Letters, try1Letters, try2Letters, try3Letters, try4Letters, try5Letters, try6Letters)
             buttonBack.setOnClickListener {
-                findNavController().popBackStack()
+                handleBackButton()
             }
             infoButton.setOnClickListener {
-                InfoRulesFragment.newInstance().showSingle(childFragmentManager, "Info")
+                InfoRulesDialog.newInstance().showSingle(childFragmentManager, "Info")
             }
         }
     }
+
+    fun handleBackButton() {
+        LeaveDialog.newInstance().showSingle(childFragmentManager, "Leave")
+    }
+
 
     private fun subscribeUi() {
         viewModel.activeTry.observe(viewLifecycleOwner) {
@@ -166,6 +183,7 @@ class GameFragment6: Fragment() {
 
     override fun onDestroyView() {
         EventBus.getDefault().unregister(this)
+        backCallback.isEnabled = false
         super.onDestroyView()
     }
 }
