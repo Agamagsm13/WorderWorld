@@ -126,6 +126,9 @@ class GameFragment: Fragment() {
             buttonBack.setOnClickListener {
                 findNavController().popBackStack()
             }
+            infoButton.setOnClickListener {
+
+            }
         }
     }
 

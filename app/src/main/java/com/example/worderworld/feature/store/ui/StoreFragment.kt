@@ -15,19 +15,15 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.agamatech.worderworld.MainActivity
 import com.agamatech.worderworld.databinding.FragmentStoreBinding
-import com.agamatech.worderworld.domain.manager.BallStoreItem
-import com.agamatech.worderworld.feature.store.adapter.OnBallClickListener
-import com.agamatech.worderworld.feature.store.adapter.StoreAdapter
 import com.agamatech.worderworld.feature.store.vm.StoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class StoreFragment: Fragment(), OnBallClickListener {
+class StoreFragment: Fragment() {
 
     private var binging: FragmentStoreBinding? = null
     private val viewModel: StoreViewModel by viewModels()
-    private var adapter: StoreAdapter? = null
     private var manager: GridLayoutManager? = null
 
     private val brPurchase = object : BroadcastReceiver() {
@@ -46,9 +42,7 @@ class StoreFragment: Fragment(), OnBallClickListener {
 
     private fun initUi() {
         binging?.apply {
-            adapter = StoreAdapter(this@StoreFragment)
             manager = GridLayoutManager(requireContext(), 2)
-            balls.adapter = adapter
             balls.layoutManager = manager
         }
     }
@@ -56,9 +50,6 @@ class StoreFragment: Fragment(), OnBallClickListener {
     private fun subscribeUi() {
         viewModel.apply {
             initBalls(listOf())
-            ballsList.observe(viewLifecycleOwner) { balls ->
-                adapter?.submitList(balls.sortedBy { !it.enable })
-            }
             errorMessage.observe(viewLifecycleOwner) {
                 Log.e("BillingService Error", it.toString())
             }
@@ -80,17 +71,6 @@ class StoreFragment: Fragment(), OnBallClickListener {
         try {
             requireContext().unregisterReceiver(brPurchase)
         } catch (e: Exception) {}
-    }
-
-
-    override fun onBallBuyClick(item: BallStoreItem?) {
-        item?.let {
-            viewModel.launchItemPurchase(it, requireActivity())
-        }
-    }
-
-    override fun onBallSelectClick(id: String) {
-        viewModel.selectBall(id)
     }
 
 }

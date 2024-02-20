@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.agamatech.worderworld",
+  "variantName": "debug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 2190000,
+      "versionName": "1.0",
+      "outputFile": "worderworld-2.19.0-debug.apk"
+    }
+  ],
+  "elementType": "File"
+}

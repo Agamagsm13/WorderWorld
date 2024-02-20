@@ -18,7 +18,12 @@ class LoadWordManager @Inject constructor(
         words = context.resources.getRawTextFile(R.raw.nouns).split("\n").map { it.trim().toUpperCase() }
     }
 
-    fun getRandomWord() = if (words.isNotEmpty()) words.random() else "hello"
+    fun getRandomWord(length: Int): String {
+        if (words.isNotEmpty()) {
+            return words.filter { it.length == length }.randomOrNull()?.toUpperCase()?: "WHEEL"
+        }
+        return "WHEEL"
+    }
 
     fun checkWordIsReal(word: String): Boolean {
         return words.contains(word)
