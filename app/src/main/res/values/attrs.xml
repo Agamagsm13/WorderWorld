@@ -18,5 +18,6 @@
 
     <declare-styleable name="LetterViewStyle">
         <attr name="letter_state" format="integer" />
+        <attr name="letter_text" format="string" />
     </declare-styleable>
 </resources>

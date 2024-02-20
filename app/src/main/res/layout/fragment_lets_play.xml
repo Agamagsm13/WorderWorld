@@ -82,6 +82,7 @@
         app:strokeColor="@color/lime">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/get_word"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Get Word"
@@ -89,6 +90,14 @@
             android:gravity="center"
             android:fontFamily="@font/pemanka"
             android:textSize="60sp" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            android:theme="@style/progressBarLime"
+            android:layout_gravity="center"/>
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -100,6 +109,8 @@
         android:paddingHorizontal="20dp"
         tools:text="@string/words_guessed"
         app:layout_constraintTop_toBottomOf="@id/start_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.5"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

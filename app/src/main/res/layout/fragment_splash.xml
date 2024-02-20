@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white">
+    android:background="@color/grey_dark">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/start_button"
@@ -15,43 +15,122 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.7"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="@color/grey_dark"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         app:strokeWidth="2dp"
-        app:strokeColor="@color/black">
+        app:strokeColor="@color/lime">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="START"
-            android:textColor="@color/black"
+            app:fontFamily="@font/pemanka"
+            android:textColor="@color/grey_light"
             android:gravity="center"
-            android:fontFamily="sans-serif-condensed-medium"
             android:textSize="40sp" />
     </com.google.android.material.card.MaterialCardView>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/logo"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/start_button"
-        android:src="@mipmap/ic_launcher_ball_round"/>
+        app:layout_constraintBottom_toTopOf="@id/start_button">
+        <LinearLayout
+            android:id="@+id/worder"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/world"
+            android:orientation="horizontal">
+            <com.example.worderworld.widget.CustomLetter
+                android:id="@+id/l1"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                app:letter_state="0"/>
+            <com.example.worderworld.widget.CustomLetter
+                android:id="@+id/l2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                app:letter_state="0"/>
+            <com.example.worderworld.widget.CustomLetter
+                android:id="@+id/l3"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                app:letter_state="0"/>
+            <com.example.worderworld.widget.CustomLetter
+                android:id="@+id/l4"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                app:letter_state="0"/>
+            <com.example.worderworld.widget.CustomLetter
+                android:id="@+id/l5"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                app:letter_state="3"/>
+            <com.example.worderworld.widget.CustomLetter
+                android:id="@+id/l6"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                app:letter_state="0"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ring"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:layout_constraintStart_toStartOf="@id/logo"
-        app:layout_constraintEnd_toEndOf="@id/logo"
-        app:layout_constraintTop_toTopOf="@id/logo"
-        app:layout_constraintBottom_toBottomOf="@id/logo"
-        android:src="@drawable/baseline_ring_24"
-        android:alpha="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/world"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/worder"
+            android:orientation="horizontal">
+            <com.example.worderworld.widget.CustomLetter
+                android:id="@+id/l7"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                app:letter_state="0"/>
+            <com.example.worderworld.widget.CustomLetter
+                android:id="@+id/l8"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                app:letter_state="2"/>
+            <com.example.worderworld.widget.CustomLetter
+                android:id="@+id/l9"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                app:letter_state="0"/>
+            <com.example.worderworld.widget.CustomLetter
+                android:id="@+id/l10"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                app:letter_state="0"/>
+
+            <com.example.worderworld.widget.CustomLetter
+                android:id="@+id/l11"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                app:letter_state="0"/>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <LinearLayout
         android:id="@+id/layout_terms_bottom"
@@ -71,14 +150,14 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="4dp"
             android:paddingVertical="8dp"
-            android:textColor="@color/black"
+            android:textColor="@color/lime"
             android:text="@string/privacy_policy" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/terms_second_line"
-            android:textColor="@color/black"/>
+            android:textColor="@color/lime"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewTermOfUse"
@@ -87,6 +166,6 @@
             android:paddingHorizontal="4dp"
             android:paddingVertical="8dp"
             android:text="@string/terms_of_use"
-            android:textColor="@color/black"/>
+            android:textColor="@color/lime"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

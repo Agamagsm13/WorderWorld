@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -38,7 +39,11 @@ class LetsPlayFragment: Fragment() {
     private fun initUi() {
         loadWordManager.loadWords(requireContext())
         binging?.apply {
+            getWord.isVisible = true
+            progress.isVisible = false
             startButton.setOnClickListener {
+                getWord.isVisible = false
+                progress.isVisible = true
                 when (viewModel.letterCount.value) {
                     5 -> {
                         val word = loadWordManager.getRandomWord(5)
@@ -68,8 +73,10 @@ class LetsPlayFragment: Fragment() {
                     viewModel.minusLetterCount()
                 }
             }
-
         }
+        val margin = resources.getDimensionPixelSize(R.dimen.default_bottom_padding)
+        val layoutParams = binging?.root?.layoutParams as FrameLayout.LayoutParams
+        layoutParams.setMargins(0, 0, 0, margin)
     }
 
     private fun subscribeUi(b: FragmentLetsPlayBinding) {

@@ -34,6 +34,11 @@
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
+    <style name="progressBarLime" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">@color/lime</item>
+    </style>
+
+
     <style name="FadeDialogAnimationStyle">
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>

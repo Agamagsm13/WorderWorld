@@ -65,7 +65,7 @@ class GameFragment7: Fragment() {
         childFragmentManager.setFragmentResultListener(WinDialog.CLOSE_DIALOG_KEY, this) { key: String, bundle: Bundle ->
             val isSuccess = bundle.getBoolean(WinDialog.BACK_TO_HOME_KEY)
             if (isSuccess) {
-                findNavController().navigateSafe(R.id.nav_lets_play)
+                findNavController().popBackStack()
             }
 
         }

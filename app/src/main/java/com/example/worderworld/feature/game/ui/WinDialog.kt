@@ -65,7 +65,6 @@ class WinDialog: DialogFragment() {
             }
             anim.start()
         }
-
     }
 
     override fun onResume() {

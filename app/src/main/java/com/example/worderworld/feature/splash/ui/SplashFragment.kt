@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -22,19 +23,19 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SplashFragment: Fragment() {
 
-    private var binging: FragmentSplashBinding? = null
+    private var binding: FragmentSplashBinding? = null
     private val viewModel: SplashViewModel by viewModels()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val b = FragmentSplashBinding.inflate(inflater, container, false).also { binging = it }
+        val b = FragmentSplashBinding.inflate(inflater, container, false).also { binding = it }
         initUi()
         subscribeUi()
         return b.root
     }
 
     private fun initUi() {
-        binging?.apply {
+        binding?.apply {
             textViewPrivacyPolicy.setOnClickListener {
                 startLink(requireContext(), getString(R.string.policy_privacy_policy))
             }
@@ -44,8 +45,36 @@ class SplashFragment: Fragment() {
             startButton.setOnClickListener {
                 findNavController().navigate(R.id.nav_action_splash_to_lets_play)
             }
-            scaleUpRing()
-            rotate()
+            l1.setText("W")
+            l2.setText("O")
+            l3.setText("R")
+            l4.setText("D")
+            l5.setText("E")
+            l6.setText("R")
+            l7.setText("W")
+            l8.setText("O")
+            l9.setText("R")
+            l10.setText("L")
+            l11.setText("D")
+
+            startAnim()
+
+        }
+    }
+
+    private fun startAnim() {
+        binding?.name?.let {
+            val anim = AnimatorSet().apply {
+                duration = 3000
+            }
+            anim.playTogether(
+                ObjectAnimator.ofFloat(it, "rotation", 0f, -10f, 0f, 10f, 0f, -10f, 0f, 10f, 0f,),
+                ObjectAnimator.ofFloat(it, "alpha", 1f, 0.6f, 1f, 0.6f, 1f, 0.6f, 1f),
+            )
+            anim.doOnEnd {
+                it.start()
+            }
+            anim.start()
         }
     }
 
@@ -53,45 +82,6 @@ class SplashFragment: Fragment() {
         viewModel.apply {
 
         }
-    }
-
-    private fun scaleUpRing() {
-        val anim = AnimatorSet()
-        anim.playTogether(
-            ObjectAnimator.ofFloat(binging?.ring, "alpha", 1f, 0f),
-            ObjectAnimator.ofFloat(binging?.ring, "scaleY", 1f, 2f),
-            ObjectAnimator.ofFloat(binging?.ring, "scaleX", 1f, 2f)
-        )
-        anim.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                binging?.ring?.alpha = 0f
-                binging?.ring?.scaleX = 1f
-                binging?.ring?.scaleY = 1f
-                if (findNavController().currentDestination?.displayName.toString().endsWith("nav_splash")) {
-                    scaleUpRing()
-                }
-                super.onAnimationEnd(animation)
-            }
-        })
-        anim.duration = 3000
-        anim.start()
-    }
-
-    private fun rotate() {
-        val anim = AnimatorSet()
-        anim.playTogether(
-            ObjectAnimator.ofFloat(binging?.logo, "rotation", 0f, 360f),
-        )
-        anim.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                if (findNavController().currentDestination?.displayName.toString().endsWith("nav_splash")) {
-                    rotate()
-                }
-                super.onAnimationEnd(animation)
-            }
-        })
-        anim.duration = 3000
-        anim.start()
     }
 
     override fun onResume() {
