@@ -30,16 +30,34 @@ class LetsPlayFragment: Fragment() {
         val b = FragmentLetsPlayBinding.inflate(inflater, container, false).also { binging = it }
         initUi()
         subscribeUi(b)
+        viewModel.getWordsGuessed()
+        viewModel.setLetterCount(5)
         return b.root
     }
 
     private fun initUi() {
+        loadWordManager.loadWords(requireContext())
         binging?.apply {
             startButton.setOnClickListener {
-                val word = loadWordManager.getRandomWord(5)
-                findNavController().navigate(R.id.nav_action_lets_play_to_game, bundleOf("word" to "WHEEL"))//word))
+                when (viewModel.letterCount.value) {
+                    5 -> {
+                        val word = loadWordManager.getRandomWord(5)
+                        findNavController().navigate(R.id.nav_action_lets_play_to_game, bundleOf("word" to word))
+                    }
+                    6 -> {
+                        val word = loadWordManager.getRandomWord(6)
+                        findNavController().navigate(R.id.nav_action_lets_play_to_game_6, bundleOf("word" to word))
+                    }
+                    7 -> {
+                        val word = loadWordManager.getRandomWord(7)
+                        findNavController().navigate(R.id.nav_action_lets_play_to_game_7, bundleOf("word" to word))
+                    }
+                    8 -> {
+                        val word = loadWordManager.getRandomWord(8)
+                        findNavController().navigate(R.id.nav_action_lets_play_to_game_8, bundleOf("word" to word))
+                    }
+                }
             }
-            viewModel.setLetterCount(5)
             plus.setOnClickListener {
                 if ((viewModel.letterCount.value?: 0) < 8) {
                     viewModel.addLetterCount()
@@ -50,7 +68,7 @@ class LetsPlayFragment: Fragment() {
                     viewModel.minusLetterCount()
                 }
             }
-            loadWordManager.loadWords(requireContext())
+
         }
     }
 
@@ -59,6 +77,9 @@ class LetsPlayFragment: Fragment() {
             b.lettersCount.text = it.toString()
             b.minus.isVisible = it > 5
             b.plus.isVisible = it <= 7
+        }
+        viewModel.wordsGuessed.observe(viewLifecycleOwner) {
+            b.wordsGuessed.text = getString(R.string.words_guessed, it)
         }
     }
 

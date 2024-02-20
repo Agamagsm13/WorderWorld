@@ -91,4 +91,19 @@
             android:textSize="60sp" />
     </com.google.android.material.card.MaterialCardView>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/words_guessed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pemanka"
+        android:textColor="@color/lime"
+        android:paddingHorizontal="20dp"
+        tools:text="@string/words_guessed"
+        app:layout_constraintTop_toBottomOf="@id/start_button"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:textSize="40dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

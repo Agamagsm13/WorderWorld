@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.agamatech.worderworld.MainActivity
 import com.agamatech.worderworld.R
+import com.agamatech.worderworld.databinding.FragmentGame6Binding
+import com.agamatech.worderworld.databinding.FragmentGame7Binding
 import com.agamatech.worderworld.databinding.FragmentGameBinding
 import com.agamatech.worderworld.feature.game.vm.GameViewModel
 import com.agamatech.worderworld.utils.navigateSafe
@@ -30,12 +32,12 @@ import org.greenrobot.eventbus.ThreadMode
 
 
 @AndroidEntryPoint
-class GameFragment: Fragment() {
+class GameFragment7: Fragment() {
 
-    private var binging: FragmentGameBinding? = null
-    private val args by navArgs<GameFragmentArgs>()
+    private var binging: FragmentGame7Binding? = null
+    private val args by navArgs<GameFragment6Args>()
     private val word get() = args.word
-    private val LETTERS_COUNT = 5
+    private val LETTERS_COUNT = 7
     private val viewModel: GameViewModel by viewModels()
     private var fullWordsList: List<List<CustomLetter>?>? = null
     private var try0Letters: List<CustomLetter>? = null
@@ -44,9 +46,11 @@ class GameFragment: Fragment() {
     private var try3Letters: List<CustomLetter>? = null
     private var try4Letters: List<CustomLetter>? = null
     private var try5Letters: List<CustomLetter>? = null
+    private var try6Letters: List<CustomLetter>? = null
+    private var try7Letters: List<CustomLetter>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val b = FragmentGameBinding.inflate(inflater, container, false).also { binging = it }
+        val b = FragmentGame7Binding.inflate(inflater, container, false).also { binging = it }
         childFragmentManager.setFragmentResultListener(WinDialog.CLOSE_DIALOG_KEY, this) { key: String, bundle: Bundle ->
             val isSuccess = bundle.getBoolean(WinDialog.BACK_TO_HOME_KEY)
             if (isSuccess) {
@@ -129,13 +133,15 @@ class GameFragment: Fragment() {
     private fun initUi() {
         binging?.apply {
             viewModel.setWord(args.word)
-            try0Letters = listOf(l00, l01, l02, l03, l04)
-            try1Letters = listOf(l10, l11, l12, l13, l14)
-            try2Letters = listOf(l20, l21, l22, l23, l24)
-            try3Letters = listOf(l30, l31, l32, l33, l34)
-            try4Letters = listOf(l40, l41, l42, l43, l44)
-            try5Letters = listOf(l50, l51, l52, l53, l54)
-            fullWordsList = listOf(try0Letters, try1Letters, try2Letters, try3Letters, try4Letters, try5Letters)
+            try0Letters = listOf(l00, l01, l02, l03, l04, l05, l06)
+            try1Letters = listOf(l10, l11, l12, l13, l14, l15, l16)
+            try2Letters = listOf(l20, l21, l22, l23, l24, l25, l26)
+            try3Letters = listOf(l30, l31, l32, l33, l34, l35, l36)
+            try4Letters = listOf(l40, l41, l42, l43, l44, l45, l46)
+            try5Letters = listOf(l50, l51, l52, l53, l54, l55, l56)
+            try6Letters = listOf(l60, l61, l62, l63, l64, l65, l66)
+            try7Letters = listOf(l70, l71, l72, l73, l74, l75, l76)
+            fullWordsList = listOf(try0Letters, try1Letters, try2Letters, try3Letters, try4Letters, try5Letters, try6Letters, try7Letters)
             buttonBack.setOnClickListener {
                 findNavController().popBackStack()
             }

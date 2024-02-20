@@ -23,12 +23,51 @@
         <action
             android:id="@+id/nav_action_lets_play_to_game"
             app:destination="@id/nav_game" />
+        <action
+            android:id="@+id/nav_action_lets_play_to_game_6"
+            app:destination="@id/nav_game_6" />
+        <action
+            android:id="@+id/nav_action_lets_play_to_game_7"
+            app:destination="@id/nav_game_7" />
+        <action
+            android:id="@+id/nav_action_lets_play_to_game_8"
+            app:destination="@id/nav_game_8" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_game"
         android:name="com.agamatech.worderworld.feature.game.ui.GameFragment"
         tools:layout="@layout/fragment_game">
+
+        <argument
+            android:name="word"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_game_6"
+        android:name="com.agamatech.worderworld.feature.game.ui.GameFragment6"
+        tools:layout="@layout/fragment_game_6">
+
+        <argument
+            android:name="word"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_game_7"
+        android:name="com.agamatech.worderworld.feature.game.ui.GameFragment7"
+        tools:layout="@layout/fragment_game_7">
+
+        <argument
+            android:name="word"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_game_8"
+        android:name="com.agamatech.worderworld.feature.game.ui.GameFragment8"
+        tools:layout="@layout/fragment_game_8">
 
         <argument
             android:name="word"
