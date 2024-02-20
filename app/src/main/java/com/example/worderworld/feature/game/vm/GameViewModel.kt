@@ -40,6 +40,9 @@ class GameViewModel @Inject constructor(
     private val _badLetters = MutableLiveData<List<String>>()
     val badLetters: LiveData<List<String>> = _badLetters
 
+    private val _goodLetters = MutableLiveData<List<String>>()
+    val goodLetters: LiveData<List<String>> = _goodLetters
+
     init {
         _activeTry.value = 0
         _activeLetter.value = 0
@@ -73,6 +76,12 @@ class GameViewModel @Inject constructor(
     fun addBadLetter(value: String) {
         if (_badLetters.value?.contains(value) != true) {
             _badLetters.value = (_badLetters.value?: listOf()) + listOf(value)
+        }
+    }
+
+    fun addGoodLetter(value: String) {
+        if (_goodLetters.value?.contains(value) != true) {
+            _goodLetters.value = (_goodLetters.value?: listOf()) + listOf(value)
         }
     }
 

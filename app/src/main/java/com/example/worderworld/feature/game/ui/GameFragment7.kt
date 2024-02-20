@@ -11,10 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.agamatech.worderworld.MainActivity
-import com.agamatech.worderworld.R
 import com.agamatech.worderworld.databinding.FragmentGame7Binding
 import com.agamatech.worderworld.feature.game.vm.GameViewModel
-import com.agamatech.worderworld.utils.navigateSafe
 import com.agamatech.worderworld.utils.showSingle
 import com.example.worderworld.event.CheckWordPressEvent
 import com.example.worderworld.event.DeleteLetterPressEvent
@@ -130,8 +128,10 @@ class GameFragment7: Fragment() {
         fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)?.forEachIndexed { index, letter ->
             if (args.word.contains(letter.getText())) {
                 if (args.word.getOrNull(index).toString() == letter.getText()) {
+                    viewModel.addGoodLetter(letter.getText())
                     letter.changeLetterState(LetterState.RESULT_OK)
                 } else {
+                    viewModel.addGoodLetter(letter.getText())
                     letter.changeLetterState(LetterState.RESULT_WRONG_PLACE)
                 }
             } else {
@@ -174,6 +174,9 @@ class GameFragment7: Fragment() {
         }
         viewModel.badLetters.observe(viewLifecycleOwner) {
             binging?.keyboard?.changeKeysState(it)
+        }
+        viewModel.goodLetters.observe(viewLifecycleOwner) {
+            binging?.keyboard?.changeGoodKeysState(it)
         }
     }
 

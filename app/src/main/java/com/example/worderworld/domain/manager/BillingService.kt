@@ -30,7 +30,7 @@ class BillingService @Inject constructor(
     var productsFlow = flow {
         while (true) {
             if (billingConnectedFlow.first()) {
-                emit(queryProductsDetails(BallProduct.values().asList()))
+                emit(queryProductsDetails(Product.values().asList()))
                 break
             }
         }
@@ -39,7 +39,7 @@ class BillingService @Inject constructor(
 
     val ballProducts = productsFlow
         .transform {
-            val data = BallProduct.allDefault().mapNotNull { ballPurchase ->
+            val data = Product.allDefault().mapNotNull { ballPurchase ->
                 val product = it.firstOrNull { p -> p.productId == ballPurchase.playProductId }
                 if (product != null) {
                     BallStoreItem(
@@ -102,7 +102,7 @@ class BillingService @Inject constructor(
     private fun handlePurchase(purchase: Purchase) {
         if (purchase.purchaseState == PurchaseState.PURCHASED) {
 
-            BallProduct.findById(purchase.products[0])?.let { ballPurchase ->
+            Product.findById(purchase.products[0])?.let { ballPurchase ->
                 billingClient.let {
                     val consumeParams = ConsumeParams.newBuilder()
                         .setPurchaseToken(purchase.purchaseToken)
@@ -148,7 +148,7 @@ class BillingService @Inject constructor(
 }
 
 data class BallStoreItem(
-    val ballItem: BallProduct,
+    val ballItem: Product,
     val productDetails: ProductDetails,
 ) {
     val priceString = productDetails.oneTimePurchaseOfferDetails?.formattedPrice ?: ""
@@ -160,28 +160,13 @@ interface ProductIdType {
     val playProductType: String
 }
 
-enum class BallProduct(override val playProductId: String) : ProductIdType {
-    //Ball17("ball_17"),
-    //Ball18("ball_18"),
-    //Ball19("ball_19_1"),
-    //Ball20("ball_20"),
-    //Ball5("ball_5"),
-    //Ball9("ball_9_1"),
-    //Ball10("ball_10"),
-    //Ball11("ball_11_1"),
-    //Ball12("ball_12"),
-    //Ball13("ball_13"),
-    //Ball14("ball_14"),
-    //Ball15("ball_15"),
-    //Ball16("ball_16"),
-    //Ball6("ball_6"),
-    //Ball7("ball_7"),
-    Ball8("ball_8");
+enum class Product(override val playProductId: String) : ProductIdType {
+    Ball8("unlock_long_words");
 
     override val playProductType = BillingClient.ProductType.INAPP
 
     companion object {
-        fun findById(id: String): BallProduct? {
+        fun findById(id: String): Product? {
             return values().firstOrNull { it.playProductId == id }
         }
         fun allDefault() = values()

@@ -129,8 +129,10 @@ class GameFragment6: Fragment() {
         fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)?.forEachIndexed { index, letter ->
             if (args.word.contains(letter.getText())) {
                 if (args.word.getOrNull(index).toString() == letter.getText()) {
+                    viewModel.addGoodLetter(letter.getText())
                     letter.changeLetterState(LetterState.RESULT_OK)
                 } else {
+                    viewModel.addGoodLetter(letter.getText())
                     letter.changeLetterState(LetterState.RESULT_WRONG_PLACE)
                 }
             } else {
@@ -173,6 +175,9 @@ class GameFragment6: Fragment() {
         }
         viewModel.badLetters.observe(viewLifecycleOwner) {
             binging?.keyboard?.changeKeysState(it)
+        }
+        viewModel.goodLetters.observe(viewLifecycleOwner) {
+            binging?.keyboard?.changeGoodKeysState(it)
         }
     }
 
