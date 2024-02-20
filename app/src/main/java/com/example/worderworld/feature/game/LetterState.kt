@@ -1,9 +1,5 @@
 package com.example.worderworld.feature.game
 
-data class LetterData(
-    val value: String,
-    val state: LetterState,
-)
 
 enum class LetterState(val state: Int) {
     INPUT(0), RESULT_FALSE(1), RESULT_WRONG_PLACE(2), RESULT_OK(3);

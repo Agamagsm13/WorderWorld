@@ -11,10 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.agamatech.worderworld.MainActivity
-import com.agamatech.worderworld.R
 import com.agamatech.worderworld.databinding.FragmentGameBinding
 import com.agamatech.worderworld.feature.game.vm.GameViewModel
-import com.agamatech.worderworld.utils.navigateSafe
 import com.agamatech.worderworld.utils.showSingle
 import com.example.worderworld.event.CheckWordPressEvent
 import com.example.worderworld.event.DeleteLetterPressEvent

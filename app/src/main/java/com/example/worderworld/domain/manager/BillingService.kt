@@ -3,7 +3,7 @@ package com.agamatech.worderworld.domain.manager
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import com.agamatech.worderworld.feature.store.usecase.AddEnabledBallUseCase
+import com.agamatech.worderworld.feature.game.usecase.SetAllWordsOpenUseCase
 import com.agamatech.worderworld.utils.toSingleEagerFlow
 import com.android.billingclient.api.*
 import com.android.billingclient.api.BillingClient.BillingResponseCode
@@ -20,7 +20,7 @@ import javax.inject.Singleton
 @Singleton
 class BillingService @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val addEnabledBallUseCase: AddEnabledBallUseCase
+    private val setAllWordsOpenUseCase: SetAllWordsOpenUseCase
 ) : PurchasesUpdatedListener {
 
 
@@ -42,7 +42,7 @@ class BillingService @Inject constructor(
             val data = Product.allDefault().mapNotNull { ballPurchase ->
                 val product = it.firstOrNull { p -> p.productId == ballPurchase.playProductId }
                 if (product != null) {
-                    BallStoreItem(
+                    StoreItem(
                         ballPurchase,
                         product
                     )
@@ -109,7 +109,9 @@ class BillingService @Inject constructor(
                         .build()
                     it.consumeAsync(consumeParams) { result: BillingResult, _: String ->
                         if (result.responseCode == BillingResponseCode.OK) {
-                            addEnabledBallUseCase(ballPurchase.playProductId)
+                            if (ballPurchase.playProductId == "unlock_long_words") {
+                                setAllWordsOpenUseCase(true)
+                            }
                             val intent = Intent()
                             intent.action = "com.agamatech.worderworld.purchase"
                             context.sendBroadcast(intent)
@@ -124,7 +126,7 @@ class BillingService @Inject constructor(
 
 
 
-    fun launchPurchaseFlow(activity: Activity, item: BallStoreItem) {
+    fun launchPurchaseFlow(activity: Activity, item: StoreItem) {
         val flowParams = buildFlowParams(item.productDetails)
         billingClient.launchBillingFlow(activity, flowParams)
     }
@@ -147,7 +149,7 @@ class BillingService @Inject constructor(
     }
 }
 
-data class BallStoreItem(
+data class StoreItem(
     val ballItem: Product,
     val productDetails: ProductDetails,
 ) {
@@ -161,7 +163,7 @@ interface ProductIdType {
 }
 
 enum class Product(override val playProductId: String) : ProductIdType {
-    Ball8("unlock_long_words");
+    UnlockWords("unlock_long_words");
 
     override val playProductType = BillingClient.ProductType.INAPP
 

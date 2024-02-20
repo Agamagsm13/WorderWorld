@@ -28,7 +28,7 @@ class StoreFragment: Fragment() {
 
     private val brPurchase = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            viewModel.updateList()
+            //viewModel.updateList()
         }
     }
 
@@ -49,12 +49,11 @@ class StoreFragment: Fragment() {
 
     private fun subscribeUi() {
         viewModel.apply {
-            initBalls(listOf())
             errorMessage.observe(viewLifecycleOwner) {
                 Log.e("BillingService Error", it.toString())
             }
             itemList.observe(viewLifecycleOwner) { purchases ->
-                initBalls(purchases)
+
             }
         }
 

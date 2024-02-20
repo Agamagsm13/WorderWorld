@@ -2,7 +2,6 @@ package com.example.worderworld.widget
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -31,7 +30,6 @@ class CustomWordField @JvmOverloads constructor(
     }
 
     private fun setUI() {
-        Log.e("idfjdfsdf", wordLength.toString())
         for (i in 0..(wordLength?:0)) {
             val letter = CustomLetter(context)
             letter.changeLetterState(LetterState.INPUT)

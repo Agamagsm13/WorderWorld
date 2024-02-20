@@ -7,7 +7,6 @@ import com.agamatech.worderworld.feature.game.usecase.GetIntersCountUseCase
 import com.agamatech.worderworld.feature.game.usecase.SetIntersCountUseCase
 import com.agamatech.worderworld.feature.game.usecase.SetWordsGuessedUseCase
 import com.agamatech.worderworld.feature.lets_play.usecase.GetWordsGuessedUseCase
-import com.agamatech.worderworld.feature.store.usecase.GetSelectedBallUseCase
 import com.example.worderworld.feature.LoadWordManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -16,7 +15,6 @@ import javax.inject.Inject
 class GameViewModel @Inject constructor(
     private val setWordsGuessedUseCase: SetWordsGuessedUseCase,
     private val getWordsGuessedUseCase: GetWordsGuessedUseCase,
-    private val getSelectedBallUseCase: GetSelectedBallUseCase,
     private val getIntersCountUseCase: GetIntersCountUseCase,
     private val setIntersCountUseCase: SetIntersCountUseCase,
     private val loadWordManager: LoadWordManager,

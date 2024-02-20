@@ -1,10 +1,15 @@
 package com.agamatech.worderworld.feature.lets_play.ui
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -27,39 +32,58 @@ class LetsPlayFragment: Fragment() {
     @Inject
     lateinit var loadWordManager: LoadWordManager
 
+    private val brPurchase = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            viewModel.getAllWordsOpen()
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val b = FragmentLetsPlayBinding.inflate(inflater, container, false).also { binging = it }
         initUi()
         subscribeUi(b)
         viewModel.getWordsGuessed()
         viewModel.setLetterCount(5)
+        viewModel.getAllWordsOpen()
         return b.root
     }
 
     private fun initUi() {
         loadWordManager.loadWords(requireContext())
         binging?.apply {
-            getWord.isVisible = true
+            if (viewModel.getAllWordsOpen()) {
+                getWord.isVisible = true
+                unlock.isVisible = false
+            } else {
+                unlock.isVisible = true
+                getWord.isVisible = false
+            }
             progress.isVisible = false
             startButton.setOnClickListener {
-                getWord.isVisible = false
-                progress.isVisible = true
-                when (viewModel.letterCount.value) {
-                    5 -> {
-                        val word = loadWordManager.getRandomWord(5)
-                        findNavController().navigate(R.id.nav_action_lets_play_to_game, bundleOf("word" to word))
+                if (unlock.isVisible) {
+                    viewModel.itemList.value?.firstOrNull { it.productDetails.productId == "unlock_long_words" }?.let {
+                        viewModel.launchItemPurchase(it, requireActivity())
                     }
-                    6 -> {
-                        val word = loadWordManager.getRandomWord(6)
-                        findNavController().navigate(R.id.nav_action_lets_play_to_game_6, bundleOf("word" to word))
-                    }
-                    7 -> {
-                        val word = loadWordManager.getRandomWord(7)
-                        findNavController().navigate(R.id.nav_action_lets_play_to_game_7, bundleOf("word" to word))
-                    }
-                    8 -> {
-                        val word = loadWordManager.getRandomWord(8)
-                        findNavController().navigate(R.id.nav_action_lets_play_to_game_8, bundleOf("word" to word))
+                } else {
+                    getWord.isVisible = false
+                    progress.isVisible = true
+                    when (viewModel.letterCount.value) {
+                        5 -> {
+                            val word = loadWordManager.getRandomWord(5)
+                            findNavController().navigate(R.id.nav_action_lets_play_to_game, bundleOf("word" to word))
+                        }
+                        6 -> {
+                            val word = loadWordManager.getRandomWord(6)
+                            findNavController().navigate(R.id.nav_action_lets_play_to_game_6, bundleOf("word" to word))
+                        }
+                        7 -> {
+                            val word = loadWordManager.getRandomWord(7)
+                            findNavController().navigate(R.id.nav_action_lets_play_to_game_7, bundleOf("word" to word))
+                        }
+                        8 -> {
+                            val word = loadWordManager.getRandomWord(8)
+                            findNavController().navigate(R.id.nav_action_lets_play_to_game_8, bundleOf("word" to word))
+                        }
                     }
                 }
             }
@@ -84,15 +108,47 @@ class LetsPlayFragment: Fragment() {
             b.lettersCount.text = it.toString()
             b.minus.isVisible = it > 5
             b.plus.isVisible = it <= 7
+            if (it > 6) {
+                if (viewModel.getAllWordsOpen()) {
+                    b.getWord.isVisible = true
+                    b.unlock.isVisible = false
+                } else {
+                    b.unlock.isVisible = true
+                    b.getWord.isVisible = false
+                }
+            } else {
+                b.getWord.isVisible = true
+                b.unlock.isVisible = false
+            }
         }
         viewModel.wordsGuessed.observe(viewLifecycleOwner) {
             b.wordsGuessed.text = getString(R.string.words_guessed, it)
+        }
+        viewModel.itemList.observe(viewLifecycleOwner) { purchases ->
+            purchases.firstOrNull { it.productDetails.productId == "unlock_long_words" }?.let {
+                b.unlock.text = getString(R.string.unlock_all_words_for, it.priceString)
+            }
+        }
+        viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
+
+        }
+        viewModel.allOpened.observe(viewLifecycleOwner) { opened ->
+
         }
     }
 
     override fun onResume() {
         (requireActivity() as MainActivity).changeNavViewVisibility(true)
         super.onResume()
+        val receiverFlags = ContextCompat.RECEIVER_NOT_EXPORTED
+        ContextCompat.registerReceiver(requireContext(), brPurchase,  IntentFilter("com.agamatech.worderworld.purchase"), receiverFlags)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        try {
+            requireContext().unregisterReceiver(brPurchase)
+        } catch (e: Exception) {}
     }
 
 }
