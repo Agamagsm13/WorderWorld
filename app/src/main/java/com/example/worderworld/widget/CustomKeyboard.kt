@@ -23,6 +23,7 @@ class CustomKeyboard @JvmOverloads constructor(
         WidgetKeyboardViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     private var backgroundColor: Int
+    private var letters = mutableMapOf<String, CustomKey>()
     private val defaultBgColor by lazy { ContextCompat.getColor(context, R.color.transparent) }
 
     init {
@@ -34,15 +35,24 @@ class CustomKeyboard @JvmOverloads constructor(
     }
 
     private fun setUI() {
-        binding.deleteLayout.setOnClickListener {
-            EventBus.getDefault().post(DeleteLetterPressEvent())
+        binding.apply {
+            deleteLayout.setOnClickListener {
+                EventBus.getDefault().post(DeleteLetterPressEvent())
+            }
+            checkLayout.setOnClickListener {
+                EventBus.getDefault().post(CheckWordPressEvent())
+            }
         }
-        binding.checkLayout.setOnClickListener {
-            EventBus.getDefault().post(CheckWordPressEvent())
-        }
+        putAlphabet()
         //if (backgroundColor != defaultBgColor || corners > 0) {
         //    setBackgroundView(binding.containerSpiciness, backgroundColor, corners)
         //}
+    }
+
+    fun changeKeysState(badLetters: List<String>) {
+        badLetters.forEach {
+            letters[it]?.changeStateToUnused()
+        }
     }
 
 
@@ -54,6 +64,37 @@ class CustomKeyboard @JvmOverloads constructor(
         //    setColor(backgroundColor)
         //}
         //layout.background = shape
+    }
+
+    private fun putAlphabet() {
+        binding.apply {
+            letters["Q"] = q
+            letters["W"] = w
+            letters["E"] = e
+            letters["R"] = r
+            letters["T"] = t
+            letters["Y"] = y
+            letters["U"] = u
+            letters["I"] = i
+            letters["O"] = o
+            letters["P"] = p
+            letters["A"] = a
+            letters["S"] = s
+            letters["D"] = d
+            letters["F"] = f
+            letters["G"] = g
+            letters["H"] = h
+            letters["J"] = j
+            letters["K"] = k
+            letters["L"] = l
+            letters["Z"] = z
+            letters["X"] = x
+            letters["C"] = c
+            letters["V"] = v
+            letters["B"] = b
+            letters["N"] = n
+            letters["M"] = m
+        }
     }
 
 }

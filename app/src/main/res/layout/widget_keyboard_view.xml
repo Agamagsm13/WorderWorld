@@ -16,59 +16,69 @@
         android:orientation="horizontal">
 
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/q"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_text="Q"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/w"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="W"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/e"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="E"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/r"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="R"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/t"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="T"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/y"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="Y"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/u"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="U"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/i"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="I"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/o"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="O"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/p"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -89,53 +99,62 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5" />
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/a"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_text="A"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/s"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="S"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/d"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="D"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/f"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="F"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/g"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="G"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/h"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="H"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/j"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="J"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/k"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="K"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/l"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -160,41 +179,48 @@
             android:layout_height="match_parent"
             android:layout_weight="1.5"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/z"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_text="Z"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/x"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="X"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/c"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="C"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/v"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="V"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/b"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="B"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/n"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             app:key_state="1"
             app:key_text="N"/>
         <com.example.worderworld.widget.CustomKey
+            android:id="@+id/m"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

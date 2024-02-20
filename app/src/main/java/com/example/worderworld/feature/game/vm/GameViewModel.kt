@@ -40,10 +40,14 @@ class GameViewModel @Inject constructor(
     private val _score = MutableLiveData<Int>()
     val score: LiveData<Int> = _score
 
+    private val _badLetters = MutableLiveData<List<String>>()
+    val badLetters: LiveData<List<String>> = _badLetters
+
     init {
         _activeTry.value = 0
         _activeLetter.value = 0
         _passedTries.value = mutableListOf()
+        _badLetters.value = mutableListOf()
     }
     fun setWord(word: String) {
         _wordValue.value = word
@@ -67,6 +71,12 @@ class GameViewModel @Inject constructor(
     fun addTry(word :String) {
         _passedTries.value?.add(word)
         goToNextTry()
+    }
+
+    fun addBadLetter(value: String) {
+        if (_badLetters.value?.contains(value) != true) {
+            _badLetters.value = (_badLetters.value?: listOf()) + listOf(value)
+        }
     }
 
     fun checkWord(word: String): Boolean {

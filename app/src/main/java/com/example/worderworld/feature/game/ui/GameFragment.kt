@@ -98,7 +98,7 @@ class GameFragment: Fragment() {
         }
     }
 
-    fun redrawLetters() {
+    private fun redrawLetters() {
         fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)?.forEachIndexed { index, letter ->
             if (args.word.contains(letter.getText())) {
                 if (args.word.getOrNull(index).toString() == letter.getText()) {
@@ -107,6 +107,7 @@ class GameFragment: Fragment() {
                     letter.changeLetterState(LetterState.RESULT_WRONG_PLACE)
                 }
             } else {
+                viewModel.addBadLetter(letter.getText())
                 letter.changeLetterState(LetterState.RESULT_FALSE)
             }
         }
@@ -133,6 +134,9 @@ class GameFragment: Fragment() {
             if (it > 5) {
                 Toast.makeText(requireContext(), "You lose", Toast.LENGTH_LONG).show()
             }
+        }
+        viewModel.badLetters.observe(viewLifecycleOwner) {
+            binging?.keyboard?.changeKeysState(it)
         }
     }
 
