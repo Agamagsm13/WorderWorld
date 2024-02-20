@@ -51,6 +51,7 @@ class GameViewModel @Inject constructor(
 
     fun goToNextTry() {
         _activeTry.value = _activeTry.value?.plus(1)
+        _activeLetter.value = 0
     }
 
     fun goToNextLetter() {
@@ -65,6 +66,7 @@ class GameViewModel @Inject constructor(
 
     fun addTry(word :String) {
         _passedTries.value?.add(word)
+        goToNextTry()
     }
 
     fun checkWord(word: String): Boolean {

@@ -46,7 +46,7 @@ class LetsPlayFragment: Fragment() {
     private fun initUi() {
         binging?.apply {
             startButton.setOnClickListener {
-                findNavController().navigate(R.id.nav_action_lets_play_to_game, bundleOf("word" to "wheel"))
+                findNavController().navigate(R.id.nav_action_lets_play_to_game, bundleOf("word" to "WHEEL"))
             }
             val display: Display = requireActivity().windowManager.defaultDisplay
             val size = Point()

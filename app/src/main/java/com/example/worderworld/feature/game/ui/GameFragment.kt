@@ -17,6 +17,7 @@ import com.example.worderworld.event.CheckWordPressEvent
 import com.example.worderworld.event.DeleteLetterPressEvent
 import com.example.worderworld.event.LetterPressEvent
 import com.example.worderworld.feature.game.LetterData
+import com.example.worderworld.feature.game.LetterState
 import com.example.worderworld.widget.CustomLetter
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
@@ -79,8 +80,34 @@ class GameFragment: Fragment() {
             fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)?.forEach {
                 word += it.getText()
             }
-            if (!viewModel.checkWord(word)) {
-                Toast.makeText(requireContext(), "Enter real word", Toast.LENGTH_LONG).show()
+            if (viewModel.passedTries.value?.contains(word) == true) {
+                Toast.makeText(requireContext(), "You already tried this one", Toast.LENGTH_LONG).show()
+            } else {
+                if (!viewModel.checkWord(word)) {
+                    Toast.makeText(requireContext(), "Enter real word", Toast.LENGTH_LONG).show()
+                } else {
+                    if (word == args.word) {
+                        redrawLetters()
+                        Toast.makeText(requireContext(), "You win", Toast.LENGTH_LONG).show()
+                    } else {
+                        redrawLetters()
+                    }
+                    viewModel.addTry(word)
+                }
+            }
+        }
+    }
+
+    fun redrawLetters() {
+        fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)?.forEachIndexed { index, letter ->
+            if (args.word.contains(letter.getText())) {
+                if (args.word.getOrNull(index).toString() == letter.getText()) {
+                    letter.changeLetterState(LetterState.RESULT_OK)
+                } else {
+                    letter.changeLetterState(LetterState.RESULT_WRONG_PLACE)
+                }
+            } else {
+                letter.changeLetterState(LetterState.RESULT_FALSE)
             }
         }
     }
@@ -102,7 +129,11 @@ class GameFragment: Fragment() {
     }
 
     private fun subscribeUi() {
-
+        viewModel.activeTry.observe(viewLifecycleOwner) {
+            if (it > 5) {
+                Toast.makeText(requireContext(), "You lose", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onResume() {
