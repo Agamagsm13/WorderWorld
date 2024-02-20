@@ -3,22 +3,19 @@ package com.agamatech.worderworld.feature.game.vm
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.agamatech.worderworld.feature.game.usecase.GetIntersCountUseCase
-import com.agamatech.worderworld.feature.game.usecase.SetBestScoreUseCase
 import com.agamatech.worderworld.feature.game.usecase.SetIntersCountUseCase
-import com.agamatech.worderworld.feature.lets_play.usecase.GetBestScoreUseCase
+import com.agamatech.worderworld.feature.game.usecase.SetWordsGuessedUseCase
+import com.agamatech.worderworld.feature.lets_play.usecase.GetWordsGuessedUseCase
 import com.agamatech.worderworld.feature.store.usecase.GetSelectedBallUseCase
-import com.agamatech.worderworld.utils.dpToPx
-import com.example.worderworld.event.CheckWordPressEvent
 import com.example.worderworld.feature.LoadWordManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class GameViewModel @Inject constructor(
-    private val setBestScoreUseCase: SetBestScoreUseCase,
-    private val getBestScoreUseCase: GetBestScoreUseCase,
+    private val setWordsGuessedUseCase: SetWordsGuessedUseCase,
+    private val getWordsGuessedUseCase: GetWordsGuessedUseCase,
     private val getSelectedBallUseCase: GetSelectedBallUseCase,
     private val getIntersCountUseCase: GetIntersCountUseCase,
     private val setIntersCountUseCase: SetIntersCountUseCase,
@@ -81,6 +78,10 @@ class GameViewModel @Inject constructor(
 
     fun checkWord(word: String): Boolean {
         return loadWordManager.checkWordIsReal(word)
+    }
+
+    fun addWordToGuessed() {
+        setWordsGuessedUseCase(getWordsGuessedUseCase() + 1)
     }
 
 }

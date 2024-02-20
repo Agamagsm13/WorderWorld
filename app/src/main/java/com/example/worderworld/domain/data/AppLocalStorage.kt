@@ -5,16 +5,16 @@ import android.content.SharedPreferences
 class AppLocalStorage(private val prefs: SharedPreferences) {
 
     object Keys {
-        const val bestScore = "bestScoreKey"
+        const val wordsGuessed = "wordsGuessedKey"
         const val enabledBalls = "enabledBallsKey"
         const val selectedBall = "selectedBallKey"
         const val intersCount = "intersCountKey"
     }
 
-    var bestScore: Int
-        get() = prefs.getInt(Keys.bestScore, 0)
+    var wordsGuessed: Int
+        get() = prefs.getInt(Keys.wordsGuessed, 0)
         set(value) {
-            prefs.edit().putInt(Keys.bestScore, value).apply()
+            prefs.edit().putInt(Keys.wordsGuessed, value).apply()
         }
 
     var enabledBalls: String?

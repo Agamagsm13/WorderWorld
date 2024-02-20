@@ -17,4 +17,6 @@
     <string name="select">SELECT</string>
     <string name="selected_text">SELECTED</string>
     <string name="check">Check</string>
+    <string name="ok">OK</string>
+    <string name="info">Info</string>
 </resources>

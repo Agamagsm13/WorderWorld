@@ -10,14 +10,20 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.agamatech.worderworld.MainActivity
+import com.agamatech.worderworld.R
 import com.agamatech.worderworld.databinding.FragmentGameBinding
 import com.agamatech.worderworld.databinding.WidgetLetterViewBinding
 import com.agamatech.worderworld.feature.game.vm.GameViewModel
+import com.agamatech.worderworld.utils.navigateSafe
+import com.agamatech.worderworld.utils.showSingle
 import com.example.worderworld.event.CheckWordPressEvent
 import com.example.worderworld.event.DeleteLetterPressEvent
 import com.example.worderworld.event.LetterPressEvent
 import com.example.worderworld.feature.game.LetterData
 import com.example.worderworld.feature.game.LetterState
+import com.example.worderworld.feature.game.ui.InfoRulesFragment
+import com.example.worderworld.feature.game.ui.LoseDialog
+import com.example.worderworld.feature.game.ui.WinDialog
 import com.example.worderworld.widget.CustomLetter
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
@@ -42,6 +48,13 @@ class GameFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val b = FragmentGameBinding.inflate(inflater, container, false).also { binging = it }
+        childFragmentManager.setFragmentResultListener(WinDialog.CLOSE_DIALOG_KEY, this) { key: String, bundle: Bundle ->
+            val isSuccess = bundle.getBoolean(WinDialog.BACK_TO_HOME_KEY)
+            if (isSuccess) {
+                findNavController().navigateSafe(R.id.nav_lets_play)
+            }
+
+        }
         EventBus.getDefault().register(this)
         initUi()
         subscribeUi()
@@ -88,6 +101,8 @@ class GameFragment: Fragment() {
                 } else {
                     if (word == args.word) {
                         redrawLetters()
+                        viewModel.addWordToGuessed()
+                        WinDialog.newInstance().showSingle(childFragmentManager, "Win")
                         Toast.makeText(requireContext(), "You win", Toast.LENGTH_LONG).show()
                     } else {
                         redrawLetters()
@@ -127,7 +142,7 @@ class GameFragment: Fragment() {
                 findNavController().popBackStack()
             }
             infoButton.setOnClickListener {
-
+                InfoRulesFragment.newInstance().showSingle(childFragmentManager, "Info")
             }
         }
     }
@@ -135,6 +150,7 @@ class GameFragment: Fragment() {
     private fun subscribeUi() {
         viewModel.activeTry.observe(viewLifecycleOwner) {
             if (it > 5) {
+                LoseDialog.newInstance(word = args.word).showSingle(childFragmentManager, "Win")
                 Toast.makeText(requireContext(), "You lose", Toast.LENGTH_LONG).show()
             }
         }

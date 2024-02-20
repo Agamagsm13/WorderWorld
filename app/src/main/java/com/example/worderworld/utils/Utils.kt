@@ -4,10 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.net.Uri
+import android.os.Bundle
+import android.util.Log
 import android.webkit.URLUtil
 import android.widget.Toast
+import androidx.annotation.IdRes
+import androidx.annotation.MainThread
 import androidx.annotation.RawRes
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
+import java.lang.IllegalArgumentException
 
 fun <T : Number> T.dpToPx(): Float = toFloat() * Resources.getSystem().displayMetrics.density
 
@@ -33,10 +41,25 @@ fun getDrawableId(context: Context, resourceName: String): Int? = try {
     null
 }
 
+fun DialogFragment.showSingle(fm: FragmentManager, tag: String) {
+    if (fm.findFragmentByTag(tag) == null) {
+        show(fm, tag)
+    }
+}
+
 fun getResourceId(context: Context, resourceName: String, resourceTypeName: String): Int? = try {
     context.resources.getIdentifier(resourceName, resourceTypeName, context.packageName)
 } catch (e: Exception) {
     null
+}
+
+@MainThread
+fun NavController.navigateSafe(@IdRes resId: Int, args: Bundle? = null) {
+    try {
+        navigate(resId, args, null)
+    } catch (e: IllegalArgumentException) {
+        Log.e("NavigateSafe", "Failed to navigate", e)
+    }
 }
 
 fun Resources.getRawTextFile(@RawRes id: Int) =

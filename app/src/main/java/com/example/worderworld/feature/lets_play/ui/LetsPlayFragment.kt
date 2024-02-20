@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -28,7 +29,7 @@ class LetsPlayFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val b = FragmentLetsPlayBinding.inflate(inflater, container, false).also { binging = it }
         initUi()
-        subscribeUi()
+        subscribeUi(b)
         return b.root
     }
 
@@ -36,14 +37,29 @@ class LetsPlayFragment: Fragment() {
         binging?.apply {
             startButton.setOnClickListener {
                 val word = loadWordManager.getRandomWord(5)
-                findNavController().navigate(R.id.nav_action_lets_play_to_game, bundleOf("word" to word))
+                findNavController().navigate(R.id.nav_action_lets_play_to_game, bundleOf("word" to "WHEEL"))//word))
+            }
+            viewModel.setLetterCount(5)
+            plus.setOnClickListener {
+                if ((viewModel.letterCount.value?: 0) < 8) {
+                    viewModel.addLetterCount()
+                }
+            }
+            minus.setOnClickListener {
+                if ((viewModel.letterCount.value?: 0) > 5) {
+                    viewModel.minusLetterCount()
+                }
             }
             loadWordManager.loadWords(requireContext())
         }
     }
 
-    private fun subscribeUi() {
-
+    private fun subscribeUi(b: FragmentLetsPlayBinding) {
+        viewModel.letterCount.observe(viewLifecycleOwner) {
+            b.lettersCount.text = it.toString()
+            b.minus.isVisible = it > 5
+            b.plus.isVisible = it <= 7
+        }
     }
 
     override fun onResume() {
