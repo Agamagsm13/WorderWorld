@@ -100,7 +100,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                app:letter_state="0"/>
+                app:letter_state="3"/>
             <com.example.worderworld.widget.CustomLetter
                 android:id="@+id/l8"
                 android:layout_width="0dp"

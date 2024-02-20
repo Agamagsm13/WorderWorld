@@ -18,4 +18,5 @@
     <color name="lime">#C9ED45</color>
     <color name="red_30">#4DFF0000</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="ic_launcher_background">#242424</color>
 </resources>

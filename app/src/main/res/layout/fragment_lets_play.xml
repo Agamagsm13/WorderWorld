@@ -34,36 +34,51 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="40dp"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/plus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
-        android:fontFamily="@font/pemanka"
-        android:textColor="@color/lime"
-        android:text="+"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         app:layout_constraintTop_toTopOf="@id/letters_count"
         app:layout_constraintBottom_toBottomOf="@id/letters_count"
-        android:gravity="center"
-        android:textSize="80dp"
-        android:translationY="-5dp"
-        app:layout_constraintStart_toEndOf="@id/letters_count" />
+        app:layout_constraintStart_toEndOf="@id/letters_count"
+        app:strokeColor="@color/lime"
+        app:strokeWidth="2dp"
+        android:layout_marginStart="20dp"
+        app:cardBackgroundColor="@color/grey_dark">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:fontFamily="@font/pemanka"
+            android:textColor="@color/lime"
+            android:text="+"
+            android:translationY="-12dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="60dp" />
+    </com.google.android.material.card.MaterialCardView>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/minus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/pemanka"
-        android:textColor="@color/orange"
-        android:paddingHorizontal="20dp"
-        android:text="-"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         app:layout_constraintTop_toTopOf="@id/letters_count"
         app:layout_constraintBottom_toBottomOf="@id/letters_count"
-        android:gravity="center"
-        android:textSize="80dp"
-        android:translationY="-5dp"
-        app:layout_constraintEnd_toStartOf="@id/letters_count" />
-
+        app:layout_constraintEnd_toStartOf="@id/letters_count"
+        app:strokeColor="@color/orange"
+        app:strokeWidth="2dp"
+        android:layout_marginEnd="20dp"
+        app:cardBackgroundColor="@color/grey_dark">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:fontFamily="@font/pemanka"
+            android:textColor="@color/orange"
+            android:text="-"
+            android:translationY="-12dp"
+            android:layout_gravity="center"
+           android:gravity="center"
+            android:textSize="60dp" />
+    </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/start_button"
         android:layout_width="200dp"
