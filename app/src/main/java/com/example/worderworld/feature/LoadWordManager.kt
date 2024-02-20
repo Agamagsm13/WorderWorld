@@ -15,9 +15,13 @@ class LoadWordManager @Inject constructor(
     var words = listOf<String>()
 
     fun loadWords(context: Context) {
-        words = context.resources.getRawTextFile(R.raw.nouns).split("\n").map { it.trim() }
+        words = context.resources.getRawTextFile(R.raw.nouns).split("\n").map { it.trim().toUpperCase() }
     }
 
     fun getRandomWord() = if (words.isNotEmpty()) words.random() else "hello"
+
+    fun checkWordIsReal(word: String): Boolean {
+        return words.contains(word)
+    }
 
 }

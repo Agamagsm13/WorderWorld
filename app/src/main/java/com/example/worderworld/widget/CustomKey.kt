@@ -9,6 +9,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.agamatech.worderworld.R
 import com.agamatech.worderworld.databinding.WidgetKeyViewBinding
+import com.example.worderworld.event.LetterPressEvent
+import org.greenrobot.eventbus.EventBus
 
 class CustomKey @JvmOverloads constructor(
     context: Context,
@@ -33,7 +35,7 @@ class CustomKey @JvmOverloads constructor(
     private fun setUI() {
         binding.keyText.text = keyText
         binding.keyBtn.setOnClickListener {
-            Toast.makeText(context, binding.keyText.text, Toast.LENGTH_LONG).show()
+            EventBus.getDefault().post(LetterPressEvent(keyText?:""))
         }
     }
 

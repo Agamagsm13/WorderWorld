@@ -8,6 +8,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.agamatech.worderworld.R
 import com.agamatech.worderworld.databinding.WidgetKeyboardViewBinding
+import com.example.worderworld.event.CheckWordPressEvent
+import com.example.worderworld.event.DeleteLetterPressEvent
+import com.example.worderworld.event.LetterPressEvent
+import org.greenrobot.eventbus.EventBus
 
 class CustomKeyboard @JvmOverloads constructor(
     context: Context,
@@ -30,6 +34,12 @@ class CustomKeyboard @JvmOverloads constructor(
     }
 
     private fun setUI() {
+        binding.deleteLayout.setOnClickListener {
+            EventBus.getDefault().post(DeleteLetterPressEvent())
+        }
+        binding.checkLayout.setOnClickListener {
+            EventBus.getDefault().post(CheckWordPressEvent())
+        }
         //if (backgroundColor != defaultBgColor || corners > 0) {
         //    setBackgroundView(binding.containerSpiciness, backgroundColor, corners)
         //}

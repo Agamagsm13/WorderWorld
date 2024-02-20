@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RawRes
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -45,7 +46,7 @@ class LetsPlayFragment: Fragment() {
     private fun initUi() {
         binging?.apply {
             startButton.setOnClickListener {
-                findNavController().navigate(R.id.nav_action_lets_play_to_game)
+                findNavController().navigate(R.id.nav_action_lets_play_to_game, bundleOf("word" to "wheel"))
             }
             val display: Display = requireActivity().windowManager.defaultDisplay
             val size = Point()

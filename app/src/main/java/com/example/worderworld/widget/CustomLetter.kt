@@ -49,4 +49,7 @@ class CustomLetter @JvmOverloads constructor(
         binding.keyText.text = value
     }
 
+    fun getText(): String = binding.keyText.text.toString()
+
+
 }

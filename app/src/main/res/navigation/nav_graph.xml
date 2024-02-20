@@ -29,6 +29,10 @@
         android:id="@+id/nav_game"
         android:name="com.agamatech.worderworld.feature.game.ui.GameFragment"
         tools:layout="@layout/fragment_game">
+
+        <argument
+            android:name="word"
+            app:argType="string" />
     </fragment>
 
     <fragment

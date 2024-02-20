@@ -4,42 +4,97 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.navArgs
 import com.agamatech.worderworld.MainActivity
 import com.agamatech.worderworld.databinding.FragmentGameBinding
+import com.agamatech.worderworld.databinding.WidgetLetterViewBinding
 import com.agamatech.worderworld.feature.game.vm.GameViewModel
+import com.example.worderworld.event.CheckWordPressEvent
+import com.example.worderworld.event.DeleteLetterPressEvent
+import com.example.worderworld.event.LetterPressEvent
 import com.example.worderworld.feature.game.LetterData
-import com.example.worderworld.feature.game.LetterState
-import com.example.worderworld.feature.game.adapter.LetterAdapter
+import com.example.worderworld.widget.CustomLetter
 import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 @AndroidEntryPoint
 class GameFragment: Fragment() {
 
     private var binging: FragmentGameBinding? = null
+    private val args by navArgs<GameFragmentArgs>()
+    private val word get() = args.word
     private val viewModel: GameViewModel by viewModels()
-    private var rotation: Animation? = null
-    private var adapter: LetterAdapter? = null
+    private var fullWordsList: List<List<CustomLetter>?>? = null
+    private var try0Letters: List<CustomLetter>? = null
+    private var try1Letters: List<CustomLetter>? = null
+    private var try2Letters: List<CustomLetter>? = null
+    private var try3Letters: List<CustomLetter>? = null
+    private var try4Letters: List<CustomLetter>? = null
+    private var try5Letters: List<CustomLetter>? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val b = FragmentGameBinding.inflate(inflater, container, false).also { binging = it }
+        EventBus.getDefault().register(this)
         initUi()
         subscribeUi()
         return b.root
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: LetterPressEvent) {
+        if ((viewModel.activeLetter.value?:0) <= 4) {
+            fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)
+                ?.getOrNull(viewModel.activeLetter.value?:0)?.let {
+                    it.setText(event.letter)
+                    viewModel.goToNextLetter()
+                }
+        }
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: DeleteLetterPressEvent) {
+        fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)
+            ?.getOrNull((viewModel.activeLetter.value?:0) - 1)?.let {
+                it.setText("")
+                viewModel.goToPreviousLetter()
+            }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: CheckWordPressEvent) {
+        if (fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)
+                ?.any { it.getText().isEmpty()} != false
+        ) {
+            Toast.makeText(requireContext(), "Enter full word", Toast.LENGTH_LONG).show()
+        } else {
+            var word = ""
+            fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)?.forEach {
+                word += it.getText()
+            }
+            if (!viewModel.checkWord(word)) {
+                Toast.makeText(requireContext(), "Enter real word", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
     private fun initUi() {
         binging?.apply {
-            adapter = LetterAdapter()
-            word.adapter = adapter
-            word.layoutManager = LinearLayoutManager(requireContext())
-            adapter?.submitList(listOf(LetterData("F", LetterState.INPUT),LetterData("F", LetterState.INPUT),LetterData("G", LetterState.INPUT),LetterData("F", LetterState.INPUT),LetterData("G", LetterState.INPUT)))
+            viewModel.setWord(args.word)
+            try0Letters = listOf(l00, l01, l02, l03, l04)
+            try1Letters = listOf(l10, l11, l12, l13, l14)
+            try2Letters = listOf(l20, l21, l22, l23, l24)
+            try3Letters = listOf(l30, l31, l32, l33, l34)
+            try4Letters = listOf(l40, l41, l42, l43, l44)
+            try5Letters = listOf(l50, l51, l52, l53, l54)
+            fullWordsList = listOf(try0Letters, try1Letters, try2Letters, try3Letters, try4Letters, try5Letters)
             buttonBack.setOnClickListener {
                 findNavController().popBackStack()
             }
@@ -55,7 +110,8 @@ class GameFragment: Fragment() {
         super.onResume()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroyView()
     }
 }
