@@ -27,11 +27,11 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:itemBackground="@color/black"
-        android:background="@color/black"
+        app:itemBackground="@color/grey_extra_dark"
+        android:background="@color/grey_extra_dark"
         android:foreground="?android:attr/selectableItemBackground"
-        app:itemTextColor="@android:color/white"
-        app:itemIconTint="@android:color/white"
+        app:itemTextColor="@color/lime"
+        app:itemIconTint="@color/lime"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/nav_menu" />
 
