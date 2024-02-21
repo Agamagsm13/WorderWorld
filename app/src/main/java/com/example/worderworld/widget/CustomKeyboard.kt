@@ -61,6 +61,12 @@ class CustomKeyboard @JvmOverloads constructor(
         }
     }
 
+    fun resetKeysState(allLetters: List<String>) {
+        allLetters.forEach {
+            letters[it]?.resetState()
+        }
+    }
+
 
     private fun setBackgroundView(layout: View, backgroundColor: Int, corners: Int) {
         //val shape = GradientDrawable()

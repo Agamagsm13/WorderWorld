@@ -51,6 +51,13 @@ class CustomKey @JvmOverloads constructor(
         }
     }
 
+    fun resetState() {
+        binding.apply {
+            keyCard.setCardBackgroundColor(ContextCompat.getColor(binding.keyCard.context, R.color.grey_dark))
+            keyCard.strokeColor = ContextCompat.getColor(binding.keyCard.context, R.color.lime)
+        }
+    }
+
 
     private fun setBackgroundView(layout: View, backgroundColor: Int, corners: Int) {
         //val shape = GradientDrawable()

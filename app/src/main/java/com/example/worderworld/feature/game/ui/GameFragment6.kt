@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.agamatech.worderworld.MainActivity
-import com.agamatech.worderworld.R
 import com.agamatech.worderworld.databinding.FragmentGame6Binding
 import com.agamatech.worderworld.feature.game.vm.GameViewModel
-import com.agamatech.worderworld.utils.navigateSafe
 import com.agamatech.worderworld.utils.showSingle
 import com.example.worderworld.event.CheckWordPressEvent
 import com.example.worderworld.event.DeleteLetterPressEvent
@@ -36,7 +35,6 @@ class GameFragment6: Fragment() {
 
     private var binging: FragmentGame6Binding? = null
     private val args by navArgs<GameFragment6Args>()
-    private val word get() = args.word
     private val LETTERS_COUNT = 6
     private val viewModel: GameViewModel by viewModels()
     private var fullWordsList: List<List<CustomLetter>?>? = null
@@ -61,13 +59,6 @@ class GameFragment6: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val b = FragmentGame6Binding.inflate(inflater, container, false).also { binging = it }
-        childFragmentManager.setFragmentResultListener(WinDialog.CLOSE_DIALOG_KEY, this) { key: String, bundle: Bundle ->
-            val isSuccess = bundle.getBoolean(WinDialog.BACK_TO_HOME_KEY)
-            if (isSuccess) {
-                findNavController().popBackStack()
-            }
-
-        }
         EventBus.getDefault().register(this)
         initUi()
         subscribeUi()
@@ -83,7 +74,6 @@ class GameFragment6: Fragment() {
                     viewModel.goToNextLetter()
                 }
         }
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -112,9 +102,10 @@ class GameFragment6: Fragment() {
                 if (!viewModel.checkWord(word)) {
                     Toast.makeText(requireContext(), "Enter real word", Toast.LENGTH_LONG).show()
                 } else {
-                    if (word == args.word) {
+                    if (word == viewModel.wordValue.value) {
                         redrawLetters()
                         viewModel.addWordToGuessed()
+                        resetGame()
                         WinDialog.newInstance().showSingle(childFragmentManager, "Win")
                     } else {
                         redrawLetters()
@@ -127,8 +118,8 @@ class GameFragment6: Fragment() {
 
     private fun redrawLetters() {
         fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)?.forEachIndexed { index, letter ->
-            if (args.word.contains(letter.getText())) {
-                if (args.word.getOrNull(index).toString() == letter.getText()) {
+            if (viewModel.wordValue.value?.contains(letter.getText()) == true) {
+                if (viewModel.wordValue.value?.getOrNull(index).toString() == letter.getText()) {
                     viewModel.addGoodLetter(letter.getText())
                     letter.changeLetterState(LetterState.RESULT_OK)
                 } else {
@@ -144,7 +135,9 @@ class GameFragment6: Fragment() {
 
     private fun initUi() {
         binging?.apply {
-            viewModel.setWord(args.word)
+            if (viewModel.firstGame.value == true) {
+                viewModel.setWord(args.word)
+            }
             try0Letters = listOf(l00, l01, l02, l03, l04, l05)
             try1Letters = listOf(l10, l11, l12, l13, l14, l15)
             try2Letters = listOf(l20, l21, l22, l23, l24, l25)
@@ -170,7 +163,8 @@ class GameFragment6: Fragment() {
     private fun subscribeUi() {
         viewModel.activeTry.observe(viewLifecycleOwner) {
             if (it > LETTERS_COUNT) {
-                LoseDialog.newInstance(word = args.word).showSingle(childFragmentManager, "Win")
+                resetGame()
+                LoseDialog.newInstance(word = viewModel.wordValue.value?:"").showSingle(childFragmentManager, "Lose")
             }
         }
         viewModel.badLetters.observe(viewLifecycleOwner) {
@@ -190,5 +184,24 @@ class GameFragment6: Fragment() {
         EventBus.getDefault().unregister(this)
         backCallback.isEnabled = false
         super.onDestroyView()
+    }
+
+    private fun resetGame() {
+        binging?.apply {
+            playAgain.isVisible = true
+            keyboard.isInvisible = true
+            playAgain.setOnClickListener {
+                playAgain.isInvisible = true
+                keyboard.isVisible = true
+                fullWordsList?.forEach { word ->
+                    word?.forEach { letter ->
+                        letter.setText("")
+                        letter.changeLetterState(LetterState.INPUT)
+                    }
+                }
+                keyboard.resetKeysState((viewModel.badLetters.value?: listOf()) + (viewModel.goodLetters.value?: listOf()))
+                viewModel.resetGame(LETTERS_COUNT)
+            }
+        }
     }
 }

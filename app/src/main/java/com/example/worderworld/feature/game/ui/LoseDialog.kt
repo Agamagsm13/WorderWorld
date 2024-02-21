@@ -48,8 +48,8 @@ class LoseDialog: DialogFragment() {
     }
 
     private fun setupView(b: DialogLoseBinding) {
-        b.closeButton.setOnClickListener { closeWithResult() }
-        b.okButton.setOnClickListener { closeWithResult() }
+        b.closeButton.setOnClickListener { dismissAllowingStateLoss() }
+        b.okButton.setOnClickListener { dismissAllowingStateLoss() }
         b.show.setOnClickListener { runShowAnim(b) }
         b.correctWord.text = arguments?.getString("word", "")
         runAnim(b)
@@ -93,15 +93,4 @@ class LoseDialog: DialogFragment() {
         window?.setGravity(Gravity.CENTER)
         super.onResume()
     }
-
-    private fun closeWithResult() {
-        dismissAllowingStateLoss()
-        setResultFragment()
-    }
-
-    private fun setResultFragment() {
-        val bundle = bundleOf(BACK_TO_HOME_KEY to true)
-        setFragmentResult(CLOSE_DIALOG_KEY, bundle)
-    }
-
 }

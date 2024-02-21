@@ -47,8 +47,8 @@ class WinDialog: DialogFragment() {
     }
 
     private fun setupView(b: DialogWinBinding) {
-        b.closeButton.setOnClickListener { closeWithResult() }
-        b.okButton.setOnClickListener { closeWithResult() }
+        b.closeButton.setOnClickListener { dismissAllowingStateLoss() }
+        b.okButton.setOnClickListener { dismissAllowingStateLoss() }
         runAnim()
     }
 
@@ -76,16 +76,6 @@ class WinDialog: DialogFragment() {
         window?.setLayout((size.x * 0.90).toInt(), WindowManager.LayoutParams.WRAP_CONTENT)
         window?.setGravity(Gravity.CENTER)
         super.onResume()
-    }
-
-    private fun closeWithResult() {
-        dismissAllowingStateLoss()
-        setResultFragment()
-    }
-
-    private fun setResultFragment() {
-        val bundle = bundleOf(BACK_TO_HOME_KEY to true)
-        setFragmentResult(CLOSE_DIALOG_KEY, bundle)
     }
 
 }

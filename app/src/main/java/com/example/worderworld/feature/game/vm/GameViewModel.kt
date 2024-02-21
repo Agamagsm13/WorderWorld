@@ -26,6 +26,9 @@ class GameViewModel @Inject constructor(
     private val _wordValue = MutableLiveData<String>()
     val wordValue: LiveData<String> = _wordValue
 
+    private val _firstGame = MutableLiveData<Boolean>(true)
+        val firstGame: LiveData<Boolean> = _firstGame
+
     private val _activeTry = MutableLiveData<Int>()
     val activeTry: LiveData<Int> = _activeTry
 
@@ -81,6 +84,16 @@ class GameViewModel @Inject constructor(
         if (_goodLetters.value?.contains(value) != true) {
             _goodLetters.value = (_goodLetters.value?: listOf()) + listOf(value)
         }
+    }
+
+    fun resetGame(length: Int) {
+        _passedTries.value = mutableListOf()
+        _badLetters.value = mutableListOf()
+        _goodLetters.value = mutableListOf()
+        _activeTry.value = 0
+        _activeLetter.value = 0
+        _firstGame.value = false
+        _wordValue.value = loadWordManager.getRandomWord(length)
     }
 
     fun checkWord(word: String): Boolean {
