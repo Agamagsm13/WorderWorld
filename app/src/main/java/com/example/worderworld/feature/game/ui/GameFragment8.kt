@@ -10,6 +10,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.agamatech.worderworld.MainActivity
 import com.agamatech.worderworld.databinding.FragmentGame8Binding
@@ -61,6 +62,12 @@ class GameFragment8: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val b = FragmentGame8Binding.inflate(inflater, container, false).also { binging = it }
+        childFragmentManager.setFragmentResultListener(LeaveDialog.CLOSE_DIALOG_KEY, this) { key: String, bundle: Bundle ->
+            val isSuccess = bundle.getBoolean(LeaveDialog.BACK_TO_HOME_KEY)
+            if (isSuccess) {
+                findNavController().popBackStack()
+            }
+        }
         EventBus.getDefault().register(this)
         initUi()
         subscribeUi()

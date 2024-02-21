@@ -31,9 +31,6 @@ class LoseDialog: DialogFragment() {
     override fun getTheme(): Int = R.style.NoBackgroundDialog
 
     companion object {
-        const val BACK_TO_HOME_KEY = "BackToHomeKey"
-        const val CLOSE_DIALOG_KEY = "CloseDialogKey"
-
         fun newInstance(word: String): LoseDialog {
             return LoseDialog().apply {
                 arguments = bundleOf("word" to word)
