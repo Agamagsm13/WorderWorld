@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.agamatech.worderworld.databinding.ActivityMainBinding
 import com.agamatech.worderworld.domain.manager.BillingService
+import com.example.worderworld.feature.LoadWordManager
 //import com.google.android.gms.ads.AdError
 //import com.google.android.gms.ads.AdRequest
 //import com.google.android.gms.ads.FullScreenContentCallback
@@ -23,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var billing: BillingService
+    @Inject
+    lateinit var loadWordManager: LoadWordManager
 
     lateinit var binding: ActivityMainBinding
 
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             navController.popBackStack(item.itemId, inclusive = false)
             true
         }
+        loadWordManager.loadWords(this)
     }
 
     fun changeNavViewVisibility(visible: Boolean) {

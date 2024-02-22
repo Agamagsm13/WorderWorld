@@ -12,21 +12,23 @@ class LoadWordManager @Inject constructor(
     val localStorage: AppLocalStorage,
 ) {
 
-    var words = listOf<String>()
+    private var listWords = listOf<String>()
+    private var words = mapOf<Int, List<String>>()
 
     fun loadWords(context: Context) {
-        words = context.resources.getRawTextFile(R.raw.nouns).split("\n").map { it.trim().toUpperCase() }
+        listWords = context.resources.getRawTextFile(R.raw.nouns).split("\n").map { it.trim().toUpperCase() }
+        words = listWords.groupBy { it.length }
     }
 
     fun getRandomWord(length: Int): String {
-        if (words.isNotEmpty()) {
-            return words.filter { it.length == length }.randomOrNull()?.toUpperCase()?: "WHEEL"
+        if (words[length]?.isNotEmpty() == true) {
+            return words[length]?.randomOrNull()?.toUpperCase()?: "WHEEL"
         }
         return "WHEEL"
     }
 
     fun checkWordIsReal(word: String): Boolean {
-        return words.contains(word)
+        return listWords.contains(word)
     }
 
 }

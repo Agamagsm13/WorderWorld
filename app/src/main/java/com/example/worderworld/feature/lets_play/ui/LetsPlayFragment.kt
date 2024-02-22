@@ -49,7 +49,6 @@ class LetsPlayFragment: Fragment() {
     }
 
     private fun initUi() {
-        loadWordManager.loadWords(requireContext())
         binging?.apply {
             if (viewModel.getAllWordsOpen()) {
                 getWord.isVisible = true
