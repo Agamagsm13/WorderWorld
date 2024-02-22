@@ -71,6 +71,7 @@ football
 format
 fraction
 fracture
+fridge
 frontend
 goose
 government
