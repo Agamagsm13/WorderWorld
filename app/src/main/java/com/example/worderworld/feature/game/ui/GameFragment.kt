@@ -171,7 +171,7 @@ class GameFragment: Fragment() {
         viewModel.activeTry.observe(viewLifecycleOwner) {
             if (it > LETTERS_COUNT) {
                 resetGame()
-                LoseDialog.newInstance(word = args.word).showSingle(childFragmentManager, "Lose")
+                LoseDialog.newInstance(word = viewModel.wordValue.value?: "").showSingle(childFragmentManager, "Lose")
             }
         }
         viewModel.badLetters.observe(viewLifecycleOwner) {
