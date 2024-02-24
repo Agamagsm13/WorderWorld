@@ -7,6 +7,6 @@ class SetIntersCountUseCase @Inject constructor(
     private val localStorage: AppLocalStorage
 ) {
     operator fun invoke() {
-        localStorage.intersCount = (localStorage.intersCount + 1) % 3
+        localStorage.intersCount = (localStorage.intersCount + 1) % 2
     }
 }
