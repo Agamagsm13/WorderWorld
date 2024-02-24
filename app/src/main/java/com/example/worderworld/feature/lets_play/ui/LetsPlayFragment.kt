@@ -104,21 +104,7 @@ class LetsPlayFragment: Fragment() {
 
     private fun subscribeUi(b: FragmentLetsPlayBinding) {
         viewModel.letterCount.observe(viewLifecycleOwner) {
-            b.lettersCount.text = it.toString()
-            b.minus.isVisible = it > 5
-            b.plus.isVisible = it <= 7
-            if (it > 6) {
-                if (viewModel.getAllWordsOpen()) {
-                    b.getWord.isVisible = true
-                    b.unlock.isVisible = false
-                } else {
-                    b.unlock.isVisible = true
-                    b.getWord.isVisible = false
-                }
-            } else {
-                b.getWord.isVisible = true
-                b.unlock.isVisible = false
-            }
+            checkLetterCountButtonState(it)
         }
         viewModel.wordsGuessed.observe(viewLifecycleOwner) {
             b.wordsGuessed.text = getString(R.string.words_guessed, it)
@@ -131,23 +117,29 @@ class LetsPlayFragment: Fragment() {
         viewModel.errorMessage.observe(viewLifecycleOwner) { error ->
 
         }
-        viewModel.allOpened.observe(viewLifecycleOwner) { opened ->
+        viewModel.allOpened.observe(viewLifecycleOwner) {
             viewModel.letterCount.value?.let {
-                b.lettersCount.text = it.toString()
-                b.minus.isVisible = it > 5
-                b.plus.isVisible = it <= 7
-                if (it > 6) {
-                    if (viewModel.isWordsOpen()) {
-                        b.getWord.isVisible = true
-                        b.unlock.isVisible = false
-                    } else {
-                        b.unlock.isVisible = true
-                        b.getWord.isVisible = false
-                    }
+                checkLetterCountButtonState(it)
+            }
+        }
+    }
+
+    private fun checkLetterCountButtonState(value: Int) {
+        binging?.apply {
+            lettersCount.text = value.toString()
+            minus.isVisible = value > 5
+            plus.isVisible = value <= 7
+            if (value > 6) {
+                if (viewModel.isWordsOpen()) {
+                    getWord.isVisible = true
+                    unlock.isVisible = false
                 } else {
-                    b.getWord.isVisible = true
-                    b.unlock.isVisible = false
+                    unlock.isVisible = true
+                    getWord.isVisible = false
                 }
+            } else {
+                getWord.isVisible = true
+                unlock.isVisible = false
             }
         }
     }
