@@ -63,6 +63,10 @@ class GameFragment6: Fragment() {
         childFragmentManager.setFragmentResultListener(LeaveDialog.CLOSE_DIALOG_KEY, this) { key: String, bundle: Bundle ->
             val isSuccess = bundle.getBoolean(LeaveDialog.BACK_TO_HOME_KEY)
             if (isSuccess) {
+                if (viewModel.getIntersCount() == 1) {
+                    (requireActivity() as? MainActivity)?.showInter()
+                }
+                viewModel.setIntersCount()
                 findNavController().popBackStack()
             }
         }

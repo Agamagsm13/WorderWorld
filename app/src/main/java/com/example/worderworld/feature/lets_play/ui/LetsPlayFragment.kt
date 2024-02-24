@@ -132,7 +132,23 @@ class LetsPlayFragment: Fragment() {
 
         }
         viewModel.allOpened.observe(viewLifecycleOwner) { opened ->
-
+            viewModel.letterCount.value?.let {
+                b.lettersCount.text = it.toString()
+                b.minus.isVisible = it > 5
+                b.plus.isVisible = it <= 7
+                if (it > 6) {
+                    if (viewModel.isWordsOpen()) {
+                        b.getWord.isVisible = true
+                        b.unlock.isVisible = false
+                    } else {
+                        b.unlock.isVisible = true
+                        b.getWord.isVisible = false
+                    }
+                } else {
+                    b.getWord.isVisible = true
+                    b.unlock.isVisible = false
+                }
+            }
         }
     }
 

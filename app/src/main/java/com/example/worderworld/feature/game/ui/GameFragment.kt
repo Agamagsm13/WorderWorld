@@ -1,6 +1,7 @@
 package com.agamatech.worderworld.feature.game.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,6 +65,11 @@ class GameFragment: Fragment() {
         childFragmentManager.setFragmentResultListener(CLOSE_DIALOG_KEY, this) { key: String, bundle: Bundle ->
             val isSuccess = bundle.getBoolean(BACK_TO_HOME_KEY)
             if (isSuccess) {
+                Log.e("MainActivity", viewModel.getIntersCount().toString())
+                if (viewModel.getIntersCount() == 1) {
+                    (requireActivity() as? MainActivity)?.showInter()
+                }
+                viewModel.setIntersCount()
                 findNavController().popBackStack()
             }
         }

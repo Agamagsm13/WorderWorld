@@ -104,4 +104,8 @@ class GameViewModel @Inject constructor(
         setWordsGuessedUseCase(getWordsGuessedUseCase() + 1)
     }
 
+    fun getIntersCount() = getIntersCountUseCase()
+
+    fun setIntersCount() = setIntersCountUseCase()
+
 }

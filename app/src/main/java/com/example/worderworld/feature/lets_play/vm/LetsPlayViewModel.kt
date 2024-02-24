@@ -56,6 +56,11 @@ class LetsPlayViewModel @Inject constructor(
         return value
     }
 
+    fun isWordsOpen(): Boolean {
+        return getAllWordsOpenUseCase()
+    }
+
+
     fun setLetterCount(value: Int) {
         _letterCount.value = value
     }
