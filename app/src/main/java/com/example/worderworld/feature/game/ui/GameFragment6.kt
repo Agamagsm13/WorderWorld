@@ -111,7 +111,7 @@ class GameFragment6: Fragment() {
                 Toast.makeText(requireContext(), "You already tried this one", Toast.LENGTH_LONG).show()
             } else {
                 if (!viewModel.checkWord(word)) {
-                    Toast.makeText(requireContext(), "Enter real word", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Enter real noun", Toast.LENGTH_LONG).show()
                 } else {
                     if (word == viewModel.wordValue.value) {
                         redrawLetters()
@@ -120,8 +120,8 @@ class GameFragment6: Fragment() {
                         WinDialog.newInstance().showSingle(childFragmentManager, "Win")
                     } else {
                         redrawLetters()
+                        viewModel.addTry(word)
                     }
-                    viewModel.addTry(word)
                 }
             }
         }
