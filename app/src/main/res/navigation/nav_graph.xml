@@ -75,9 +75,23 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_store"
-        android:name="com.agamatech.worderworld.feature.store.ui.StoreFragment"
-        tools:layout="@layout/fragment_store">
+        android:id="@+id/nav_levels_lets_play"
+        android:name="com.agamatech.worderworld.feature.lets_play.ui.LetsPlayLevelsFragment"
+        tools:layout="@layout/fragment_lets_level_play">
+
+        <action
+            android:id="@+id/nav_action_level_play_to_game"
+            app:destination="@id/nav_level_game" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_level_game"
+        android:name="com.agamatech.worderworld.feature.game.ui.LevelGameFragment"
+        tools:layout="@layout/fragment_level_game">
+
+        <argument
+            android:name="word"
+            app:argType="string" />
     </fragment>
 
 </navigation>

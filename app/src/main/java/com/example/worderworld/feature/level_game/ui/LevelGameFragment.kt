@@ -1,0 +1,228 @@
+package com.agamatech.worderworld.feature.game.ui
+
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import com.agamatech.worderworld.MainActivity
+import com.agamatech.worderworld.R
+import com.agamatech.worderworld.databinding.FragmentLevelGameBinding
+import com.agamatech.worderworld.feature.game.vm.LevelGameViewModel
+import com.agamatech.worderworld.utils.showSingle
+import com.example.worderworld.event.CheckWordPressEvent
+import com.example.worderworld.event.DeleteLetterPressEvent
+import com.example.worderworld.event.LetterPressEvent
+import com.example.worderworld.feature.game.LetterState
+import com.example.worderworld.feature.game.ui.InfoRulesDialog
+import com.example.worderworld.feature.game.ui.LeaveDialog
+import com.example.worderworld.feature.game.ui.LeaveDialog.Companion.BACK_TO_HOME_KEY
+import com.example.worderworld.feature.game.ui.LeaveDialog.Companion.CLOSE_DIALOG_KEY
+import com.example.worderworld.feature.game.ui.LoseDialog
+import com.example.worderworld.feature.game.ui.WinDialog
+import com.example.worderworld.feature.level_game.ui.InfoRulesLevelDialog
+import com.example.worderworld.feature.level_game.ui.LevelCompletedDialog
+import com.example.worderworld.widget.CustomLetter
+import dagger.hilt.android.AndroidEntryPoint
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+
+
+@AndroidEntryPoint
+class LevelGameFragment: Fragment() {
+
+    private var binging: FragmentLevelGameBinding? = null
+    private val args by navArgs<GameFragmentArgs>()
+    private val LETTERS_COUNT = 5
+    private val viewModel: LevelGameViewModel by viewModels()
+    private var fullWordsList: List<List<CustomLetter>?>? = null
+    private var try0Letters: List<CustomLetter>? = null
+    private var try1Letters: List<CustomLetter>? = null
+    private var try2Letters: List<CustomLetter>? = null
+    private var try3Letters: List<CustomLetter>? = null
+    private var try4Letters: List<CustomLetter>? = null
+    private var try5Letters: List<CustomLetter>? = null
+
+    private val backCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            handleBackButton()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, backCallback)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val b = FragmentLevelGameBinding.inflate(inflater, container, false).also { binging = it }
+        childFragmentManager.setFragmentResultListener(CLOSE_DIALOG_KEY, this) { key: String, bundle: Bundle ->
+            val isSuccess = bundle.getBoolean(BACK_TO_HOME_KEY)
+            if (isSuccess) {
+                Log.e("MainActivity", viewModel.getIntersCount().toString())
+                if (viewModel.getIntersCount() == 1) {
+                    (requireActivity() as? MainActivity)?.showInter()
+                }
+                viewModel.setIntersCount()
+                findNavController().popBackStack()
+            }
+        }
+        EventBus.getDefault().register(this)
+        initUi()
+        subscribeUi()
+        return b.root
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: LetterPressEvent) {
+        if ((viewModel.activeLetter.value?:0) <= LETTERS_COUNT - 1) {
+            fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)
+                ?.getOrNull(viewModel.activeLetter.value?:0)?.let {
+                    it.setText(event.letter)
+                    viewModel.goToNextLetter()
+                }
+        }
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: DeleteLetterPressEvent) {
+        fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)
+            ?.getOrNull((viewModel.activeLetter.value?:0) - 1)?.let {
+                it.setText("")
+                viewModel.goToPreviousLetter()
+            }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: CheckWordPressEvent) {
+        if (fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)
+                ?.any { it.getText().isEmpty()} != false
+        ) {
+            Toast.makeText(requireContext(), "Enter full word", Toast.LENGTH_LONG).show()
+        } else {
+            var word = ""
+            fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)?.forEach {
+                word += it.getText()
+            }
+            if (viewModel.passedTries.value?.contains(word) == true) {
+                Toast.makeText(requireContext(), "You already tried this one", Toast.LENGTH_LONG).show()
+            } else {
+                if (!viewModel.checkWord(word)) {
+                    Toast.makeText(requireContext(), "Enter real noun", Toast.LENGTH_LONG).show()
+                } else {
+                    if (word == viewModel.wordValue.value) {
+                        redrawLetters()
+                        viewModel.addWordToGuessed()
+                        resetGame(true)
+                        LevelCompletedDialog.newInstance().showSingle(childFragmentManager, "Win")
+                    } else {
+                        redrawLetters()
+                        viewModel.addTry(word)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun redrawLetters() {
+        fullWordsList?.getOrNull(viewModel.activeTry.value?: 0)?.forEachIndexed { index, letter ->
+            if (viewModel.wordValue.value?.contains(letter.getText()) == true) {
+                if (viewModel.wordValue.value?.getOrNull(index).toString() == letter.getText()) {
+                    viewModel.addGoodLetter(letter.getText())
+                    letter.changeLetterState(LetterState.RESULT_OK)
+                } else {
+                    viewModel.addGoodLetter(letter.getText())
+                    letter.changeLetterState(LetterState.RESULT_WRONG_PLACE)
+                }
+            } else {
+                viewModel.addBadLetter(letter.getText())
+                letter.changeLetterState(LetterState.RESULT_FALSE)
+            }
+        }
+    }
+
+    private fun initUi() {
+        binging?.apply {
+            if (viewModel.firstGame.value == true) {
+                viewModel.setWord(args.word)
+            }
+            try0Letters = listOf(l00, l01, l02, l03, l04)
+            try1Letters = listOf(l10, l11, l12, l13, l14)
+            try2Letters = listOf(l20, l21, l22, l23, l24)
+            try3Letters = listOf(l30, l31, l32, l33, l34)
+            try4Letters = listOf(l40, l41, l42, l43, l44)
+            try5Letters = listOf(l50, l51, l52, l53, l54)
+            fullWordsList = listOf(try0Letters, try1Letters, try2Letters, try3Letters, try4Letters, try5Letters)
+            buttonBack.setOnClickListener {
+                handleBackButton()
+            }
+            infoButton.setOnClickListener {
+                InfoRulesLevelDialog.newInstance().showSingle(childFragmentManager, "Info")
+            }
+            title.text = getString(R.string.level, viewModel.currentLevel.value?: 1)
+        }
+    }
+
+    fun handleBackButton() {
+        LeaveDialog.newInstance(isLevelGame = true).showSingle(childFragmentManager, "Leave")
+    }
+
+    private fun subscribeUi() {
+        viewModel.activeTry.observe(viewLifecycleOwner) {
+            if (it > LETTERS_COUNT) {
+                resetGame(false)
+                LoseDialog.newInstance(word = viewModel.wordValue.value?: "").showSingle(childFragmentManager, "Lose")
+            }
+        }
+        viewModel.badLetters.observe(viewLifecycleOwner) {
+            binging?.keyboard?.changeKeysState(it)
+        }
+        viewModel.goodLetters.observe(viewLifecycleOwner) {
+            binging?.keyboard?.changeGoodKeysState(it)
+        }
+        viewModel.currentLevel.observe(viewLifecycleOwner) {
+            binging?.title?.text = getString(R.string.level, it)
+        }
+    }
+
+    override fun onResume() {
+        (requireActivity() as MainActivity).changeNavViewVisibility(false)
+        super.onResume()
+    }
+
+    override fun onDestroyView() {
+        EventBus.getDefault().unregister(this)
+        backCallback.isEnabled = false
+        super.onDestroyView()
+    }
+
+    private fun resetGame(win: Boolean) {
+        binging?.apply {
+            playAgain.isVisible = true
+            playAgainText.text = getString(if (win) R.string.next_level else R.string.play_again)
+            keyboard.isInvisible = true
+            playAgain.setOnClickListener {
+                playAgain.isInvisible = true
+                keyboard.isVisible = true
+                fullWordsList?.forEach { word ->
+                    word?.forEach { letter ->
+                        letter.setText("")
+                        letter.changeLetterState(LetterState.INPUT)
+                    }
+                }
+                keyboard.resetKeysState((viewModel.badLetters.value?: listOf()) + (viewModel.goodLetters.value?: listOf()))
+                    viewModel.resetGame(LETTERS_COUNT, win)
+            }
+        }
+    }
+}

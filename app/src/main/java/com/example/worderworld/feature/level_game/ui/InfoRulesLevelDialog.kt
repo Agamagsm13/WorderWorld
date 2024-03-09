@@ -1,0 +1,58 @@
+package com.example.worderworld.feature.level_game.ui
+
+import android.graphics.Point
+import android.os.Bundle
+import android.view.Display
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
+import androidx.core.os.bundleOf
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
+import com.agamatech.worderworld.R
+import com.agamatech.worderworld.databinding.DialogInfoRulesBinding
+import com.agamatech.worderworld.databinding.DialogInfoRulesLevelBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class InfoRulesLevelDialog: DialogFragment() {
+
+    private var binding: DialogInfoRulesLevelBinding? = null
+
+    override fun getTheme(): Int = R.style.NoBackgroundDialog
+
+    companion object {
+        fun newInstance(): InfoRulesLevelDialog {
+            return InfoRulesLevelDialog().apply {
+                arguments = bundleOf()
+            }
+        }
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val b = DialogInfoRulesLevelBinding.inflate(inflater, container, false).also { binding = it }
+        setupView(b)
+        return b.root
+    }
+
+    private fun setupView(b: DialogInfoRulesLevelBinding) {
+        b.closeButton.setOnClickListener { dismissAllowingStateLoss() }
+        b.okButton.setOnClickListener { dismissAllowingStateLoss() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val window: Window? = dialog?.window
+        val size = Point()
+        val display: Display? = window?.windowManager?.defaultDisplay
+        display?.getSize(size)
+        window?.setLayout((size.x * 0.90).toInt(), WindowManager.LayoutParams.WRAP_CONTENT)
+        window?.setGravity(Gravity.CENTER)
+        super.onResume()
+    }
+
+}

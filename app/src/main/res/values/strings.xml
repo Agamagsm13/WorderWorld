@@ -2,6 +2,7 @@
     <string name="app_name">WorderWorld</string>
     <string name="play">Play</string>
     <string name="store">Store</string>
+    <string name="levels_menu">Level mode</string>
 
     <string name="best_score">Best score: %d</string>
 
@@ -20,5 +21,22 @@
     <string name="ok">OK</string>
     <string name="info">Info</string>
     <string name="words_guessed">Words guessed: %d</string>
+    <string name="max_level">Max level: %d</string>
     <string name="unlock_all_words_for">Unlock all words\nfor %s</string>
+    <string name="unlock_mode">Unlock mode\nfor %s</string>
+    <string name="letters_in_word">Letters in word:</string>
+    <string name="level_mode">Level mode</string>
+    <string name="get_word">Get Word</string>
+    <string name="lets_start">Let\'s start</string>
+    <string name="locked">Locked</string>
+    <string name="level">Level %d</string>
+    <string name="play_again">Play again</string>
+    <string name="next_level">Next level</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="lose_progress">Are you sure?\nProgress will be lost</string>
+    <string name="wow">Wow!</string>
+    <string name="congrats">Congrats!</string>
+    <string name="level_completed">Level completed</string>
+    <string name="no_such_letter_in_the_word">There is no such letter in the word</string>
+    <string name="how_many_words">How many words do you guess\nbefore you lose?</string>
 </resources>

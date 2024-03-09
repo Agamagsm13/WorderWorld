@@ -26,7 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Worder World"
+        android:text="@string/level"
         android:gravity="center"
         android:textColor="@color/lime"
         app:layout_constraintStart_toEndOf="@id/button_back"
@@ -345,6 +345,7 @@
         app:strokeColor="@color/lime">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/play_again_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/play_again"

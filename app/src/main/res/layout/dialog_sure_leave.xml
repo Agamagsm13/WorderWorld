@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/pemanka"
             android:textColor="@color/orange"
-            android:text="Are you sure?"
+            android:text="@string/are_you_sure"
             android:gravity="center"
             android:textSize="40dp"
             app:layout_constraintStart_toStartOf="parent"

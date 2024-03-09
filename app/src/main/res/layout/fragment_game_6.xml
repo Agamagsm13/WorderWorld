@@ -431,7 +431,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Play again"
+            android:text="@string/play_again"
             android:fontFamily="@font/pemanka"
             android:textColor="@color/grey_light"
             android:gravity="center"

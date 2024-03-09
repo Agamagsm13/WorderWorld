@@ -27,9 +27,9 @@ class LeaveDialog: DialogFragment() {
         const val BACK_TO_HOME_KEY = "BackToHomeKey"
         const val CLOSE_DIALOG_KEY = "CloseDialogKey"
 
-        fun newInstance(): LeaveDialog {
+        fun newInstance(isLevelGame: Boolean = false): LeaveDialog {
             return LeaveDialog().apply {
-                arguments = bundleOf()
+                arguments = bundleOf("isLevel" to isLevelGame)
             }
         }
     }
@@ -41,6 +41,9 @@ class LeaveDialog: DialogFragment() {
     }
 
     private fun setupView(b: DialogSureLeaveBinding) {
+        if (arguments?.getBoolean("isLevel") == true) {
+            b.sure.text = getString(R.string.lose_progress)
+        }
         b.closeButton.setOnClickListener { dismissAllowingStateLoss() }
         b.noButton.setOnClickListener { dismissAllowingStateLoss() }
         b.yesButton.setOnClickListener { closeWithResult() }

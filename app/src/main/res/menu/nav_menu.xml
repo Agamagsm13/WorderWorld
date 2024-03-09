@@ -8,6 +8,12 @@
         android:title="@string/play" />
 
     <item
+        android:id="@+id/nav_levels_lets_play"
+        android:icon="@drawable/outline_heart_broken_24"
+        android:iconTint="@color/white"
+        android:title="@string/levels_menu" />
+
+    <item
         android:id="@+id/nav_store"
         android:icon="@drawable/baseline_shopping_cart_24"
         android:iconTint="@color/white"
