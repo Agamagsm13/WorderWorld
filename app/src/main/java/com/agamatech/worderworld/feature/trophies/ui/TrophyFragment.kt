@@ -1,4 +1,4 @@
-package com.agamatech.worderworld.feature.store.ui
+package com.agamatech.worderworld.feature.trophies.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,6 +26,7 @@ class TrophyFragment: Fragment() {
         initUi()
         subscribeUi()
         viewModel.getAllTrophies()
+        viewModel.getAchievedTrophies()
         return b.root
     }
 
@@ -40,9 +41,29 @@ class TrophyFragment: Fragment() {
 
     private fun subscribeUi() {
         viewModel.apply {
-            trophiesList.observe(viewLifecycleOwner) { trophies ->
-                adapter?.submitList(trophies)
+            allTrophies.observe(viewLifecycleOwner) {
+                tryRefreshTrophiesListUi()
             }
+            achievedTrophies.observe(viewLifecycleOwner) {
+                tryRefreshTrophiesListUi()
+            }
+        }
+    }
+
+    private fun tryRefreshTrophiesListUi() {
+        if (viewModel.allTrophies.value?.isNotEmpty() == true) {
+            val trophies = viewModel.achievedTrophies.value
+            if (trophies != null) {
+                adapter?.setAchievedTrophies(trophies)
+                adapter?.submitList((viewModel.allTrophies.value)?.sortedByDescending { all -> trophies.any { all.id == it?.id } })
+                adapter?.notifyDataSetChanged()
+            } else {
+                viewModel.allTrophies.value?.let {
+                    adapter?.submitList(it)
+                    adapter?.notifyDataSetChanged()
+                }
+            }
+
         }
     }
 }

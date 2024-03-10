@@ -102,7 +102,7 @@
 
     <fragment
         android:id="@+id/nav_trophies"
-        android:name="com.agamatech.worderworld.feature.store.ui.TrophyFragment"
+        android:name="com.agamatech.worderworld.feature.trophies.ui.TrophyFragment"
         tools:layout="@layout/fragment_trophy">
     </fragment>
 
