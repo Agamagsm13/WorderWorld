@@ -100,4 +100,10 @@
         tools:layout="@layout/fragment_store">
     </fragment>
 
+    <fragment
+        android:id="@+id/nav_trophies"
+        android:name="com.agamatech.worderworld.feature.store.ui.TrophyFragment"
+        tools:layout="@layout/fragment_trophy">
+    </fragment>
+
 </navigation>

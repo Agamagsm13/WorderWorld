@@ -2,6 +2,7 @@
     <string name="app_name">WorderWorld</string>
     <string name="play">Play</string>
     <string name="store">Store</string>
+    <string name="trophies">Trophies</string>
     <string name="levels_menu">Level mode</string>
 
     <string name="best_score">Best score: %d</string>

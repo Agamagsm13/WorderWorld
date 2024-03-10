@@ -47,37 +47,37 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/world"
             android:orientation="horizontal">
-            <com.example.worderworld.widget.CustomLetter
+            <com.agamatech.worderworld.widget.CustomLetter
                 android:id="@+id/l1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 app:letter_state="0"/>
-            <com.example.worderworld.widget.CustomLetter
+            <com.agamatech.worderworld.widget.CustomLetter
                 android:id="@+id/l2"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 app:letter_state="0"/>
-            <com.example.worderworld.widget.CustomLetter
+            <com.agamatech.worderworld.widget.CustomLetter
                 android:id="@+id/l3"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 app:letter_state="0"/>
-            <com.example.worderworld.widget.CustomLetter
+            <com.agamatech.worderworld.widget.CustomLetter
                 android:id="@+id/l4"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 app:letter_state="0"/>
-            <com.example.worderworld.widget.CustomLetter
+            <com.agamatech.worderworld.widget.CustomLetter
                 android:id="@+id/l5"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 app:letter_state="3"/>
-            <com.example.worderworld.widget.CustomLetter
+            <com.agamatech.worderworld.widget.CustomLetter
                 android:id="@+id/l6"
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -95,32 +95,32 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/worder"
             android:orientation="horizontal">
-            <com.example.worderworld.widget.CustomLetter
+            <com.agamatech.worderworld.widget.CustomLetter
                 android:id="@+id/l7"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 app:letter_state="3"/>
-            <com.example.worderworld.widget.CustomLetter
+            <com.agamatech.worderworld.widget.CustomLetter
                 android:id="@+id/l8"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 app:letter_state="2"/>
-            <com.example.worderworld.widget.CustomLetter
+            <com.agamatech.worderworld.widget.CustomLetter
                 android:id="@+id/l9"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 app:letter_state="0"/>
-            <com.example.worderworld.widget.CustomLetter
+            <com.agamatech.worderworld.widget.CustomLetter
                 android:id="@+id/l10"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 app:letter_state="0"/>
 
-            <com.example.worderworld.widget.CustomLetter
+            <com.agamatech.worderworld.widget.CustomLetter
                 android:id="@+id/l11"
                 android:layout_width="0dp"
                 android:layout_weight="1"
