@@ -2,6 +2,7 @@ package com.agamatech.worderworld.feature.store.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -30,15 +31,10 @@ class TrophyAdapter() : ListAdapter<Trophy, RecyclerView.ViewHolder>(BallDiffCal
                 title.text = trophy.title
                 subtitle.text = trophy.text
                 val textColor = if (achievedTrophies.any { it.id == trophy.id }) trophyCard.context.getColor(R.color.lime) else trophyCard.context.getColor(R.color.orange)
-                if (achievedTrophies.any { it.id == trophy.id }) {
-                    title.setTextColor(textColor)
-                    subtitle.setTextColor(textColor)
-                    trophyCard.strokeColor = textColor
-                } else {
-                    title.setTextColor(textColor)
-                    subtitle.setTextColor(textColor)
-                    trophyCard.strokeColor = textColor
-                }
+                title.setTextColor(textColor)
+                subtitle.setTextColor(textColor)
+                trophyCard.strokeColor = textColor
+                lock.isVisible = !achievedTrophies.any { it.id == trophy.id }
             }
         }
     }

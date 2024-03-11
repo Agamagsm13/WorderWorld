@@ -115,7 +115,15 @@ class LevelGameViewModel @Inject constructor(
             if ((_currentLevel.value?: 1) > getMaxLevelUseCase()) {
                 setMaxLevelUseCase(_currentLevel.value?: 1)
             }
-
+            if ((_currentLevel.value?: 1) >= 5) {
+                addIfPossibleTrophyUseCase(Trophy.Level5.id)
+            }
+            if ((_currentLevel.value?: 1) >= 10) {
+                addIfPossibleTrophyUseCase(Trophy.Level10.id)
+            }
+            if ((_currentLevel.value?: 1) >= 20) {
+                addIfPossibleTrophyUseCase(Trophy.Level20.id)
+            }
         } else {
             _currentLevel.value = 1
         }
