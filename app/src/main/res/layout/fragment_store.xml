@@ -5,13 +5,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/grey_dark">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bg_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@mipmap/bg_main"
+        android:scaleType="centerCrop"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/coming_soon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/pemanka"
         android:textColor="@color/lime"
-        android:text="Coming soon..."
+        android:text="@string/coming_soon"
         android:gravity="center"
         android:textSize="50dp"
         app:layout_constraintStart_toStartOf="parent"

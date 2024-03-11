@@ -6,6 +6,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/grey_dark">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bg_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@mipmap/bg_main"
+        android:scaleType="centerCrop"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/letters_title"
         android:layout_width="match_parent"
