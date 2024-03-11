@@ -172,6 +172,7 @@ class GameFragment7: Fragment() {
     private fun subscribeUi() {
         viewModel.activeTry.observe(viewLifecycleOwner) {
             if (it > LETTERS_COUNT) {
+                viewModel.checkLooserTrophy()
                 resetGame()
                 LoseDialog.newInstance(word = viewModel.wordValue.value?: "").showSingle(childFragmentManager, "Lose")
             }

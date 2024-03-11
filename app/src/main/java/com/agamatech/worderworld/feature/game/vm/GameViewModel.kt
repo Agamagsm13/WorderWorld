@@ -3,11 +3,14 @@ package com.agamatech.worderworld.feature.game.vm
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.agamatech.worderworld.domain.data.Trophy
 import com.agamatech.worderworld.feature.game.usecase.GetIntersCountUseCase
 import com.agamatech.worderworld.feature.game.usecase.SetIntersCountUseCase
 import com.agamatech.worderworld.feature.game.usecase.SetWordsGuessedUseCase
 import com.agamatech.worderworld.feature.lets_play.usecase.GetWordsGuessedUseCase
 import com.agamatech.worderworld.feature.LoadWordManager
+import com.agamatech.worderworld.feature.trophies.usecase.AddIfPossibleTrophyUseCase
+import com.agamatech.worderworld.feature.trophies.usecase.GetAchievedTrophiesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,6 +20,8 @@ class GameViewModel @Inject constructor(
     private val getWordsGuessedUseCase: GetWordsGuessedUseCase,
     private val getIntersCountUseCase: GetIntersCountUseCase,
     private val setIntersCountUseCase: SetIntersCountUseCase,
+    private val addIfPossibleTrophyUseCase: AddIfPossibleTrophyUseCase,
+    private val getAchievedTrophiesUseCase: GetAchievedTrophiesUseCase,
     private val loadWordManager: LoadWordManager,
 ): ViewModel() {
 
@@ -49,6 +54,16 @@ class GameViewModel @Inject constructor(
         _activeLetter.value = 0
         _passedTries.value = mutableListOf()
         _badLetters.value = mutableListOf()
+        val guessedWords = getWordsGuessedUseCase()
+        if (guessedWords >= 10) {
+            addIfPossibleTrophyUseCase(Trophy.Words10.id)
+        }
+        if (guessedWords >= 50) {
+            addIfPossibleTrophyUseCase(Trophy.Words50.id)
+        }
+        if (guessedWords >= 100) {
+            addIfPossibleTrophyUseCase(Trophy.Words100.id)
+        }
     }
     fun setWord(word: String) {
         _wordValue.value = word
@@ -101,7 +116,26 @@ class GameViewModel @Inject constructor(
     }
 
     fun addWordToGuessed() {
-        setWordsGuessedUseCase(getWordsGuessedUseCase() + 1)
+        if (activeTry.value == 0) {
+            addIfPossibleTrophyUseCase(Trophy.FirstTry.id)
+        }
+        val guessedWords = getWordsGuessedUseCase() + 1
+        setWordsGuessedUseCase(guessedWords)
+        if (guessedWords >= 10) {
+            addIfPossibleTrophyUseCase(Trophy.Words10.id)
+        }
+        if (guessedWords >= 50) {
+            addIfPossibleTrophyUseCase(Trophy.Words50.id)
+        }
+        if (guessedWords >= 100) {
+            addIfPossibleTrophyUseCase(Trophy.Words100.id)
+        }
+    }
+
+    fun checkLooserTrophy() {
+        if (goodLetters.value.isNullOrEmpty()) {
+            addIfPossibleTrophyUseCase(Trophy.Looser.id)
+        }
     }
 
     fun getIntersCount() = getIntersCountUseCase()

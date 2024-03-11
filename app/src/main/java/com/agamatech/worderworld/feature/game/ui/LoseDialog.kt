@@ -42,7 +42,10 @@ class LoseDialog: DialogFragment() {
     private fun setupView(b: DialogLoseBinding) {
         b.closeButton.setOnClickListener { dismissAllowingStateLoss() }
         b.okButton.setOnClickListener { dismissAllowingStateLoss() }
-        b.show.setOnClickListener { runShowAnim(b) }
+        b.show.setOnClickListener {
+            runShowAnim(b)
+            b.show.setOnClickListener {  }
+        }
         b.correctWord.text = arguments?.getString("word", "")
         runAnim(b)
     }

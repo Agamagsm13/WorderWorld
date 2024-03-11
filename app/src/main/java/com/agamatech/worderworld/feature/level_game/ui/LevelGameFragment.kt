@@ -1,4 +1,4 @@
-package com.agamatech.worderworld.feature.game.ui
+package com.agamatech.worderworld.feature.level_game.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -22,10 +22,11 @@ import com.agamatech.worderworld.event.CheckWordPressEvent
 import com.agamatech.worderworld.event.DeleteLetterPressEvent
 import com.agamatech.worderworld.event.LetterPressEvent
 import com.agamatech.worderworld.feature.game.LetterState
+import com.agamatech.worderworld.feature.game.ui.GameFragmentArgs
+import com.agamatech.worderworld.feature.game.ui.LeaveDialog
 import com.agamatech.worderworld.feature.game.ui.LeaveDialog.Companion.BACK_TO_HOME_KEY
 import com.agamatech.worderworld.feature.game.ui.LeaveDialog.Companion.CLOSE_DIALOG_KEY
-import com.agamatech.worderworld.feature.level_game.ui.InfoRulesLevelDialog
-import com.agamatech.worderworld.feature.level_game.ui.LevelCompletedDialog
+import com.agamatech.worderworld.feature.game.ui.LoseDialog
 import com.agamatech.worderworld.widget.CustomLetter
 import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.EventBus
@@ -65,10 +66,7 @@ class LevelGameFragment: Fragment() {
             val isSuccess = bundle.getBoolean(BACK_TO_HOME_KEY)
             if (isSuccess) {
                 Log.e("MainActivity", viewModel.getIntersCount().toString())
-                if (viewModel.getIntersCount() == 1) {
-                    (requireActivity() as? MainActivity)?.showInter()
-                }
-                viewModel.setIntersCount()
+                (requireActivity() as? MainActivity)?.showInter()
                 findNavController().popBackStack()
             }
         }
@@ -176,8 +174,10 @@ class LevelGameFragment: Fragment() {
     private fun subscribeUi() {
         viewModel.activeTry.observe(viewLifecycleOwner) {
             if (it > LETTERS_COUNT) {
+                viewModel.checkLooserTrophy()
                 resetGame(false)
-                LoseDialog.newInstance(word = viewModel.wordValue.value?: "").showSingle(childFragmentManager, "Lose")
+                LoseDialog.newInstance(word = viewModel.wordValue.value ?: "")
+                    .showSingle(childFragmentManager, "Lose")
             }
         }
         viewModel.badLetters.observe(viewLifecycleOwner) {

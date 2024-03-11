@@ -8,7 +8,7 @@ class GetAchievedTrophiesUseCase @Inject constructor(
     private val localStorage: AppLocalStorage
 ) {
     operator fun invoke(): List<Trophy?> {
-        return ((localStorage.trophies?.split(","))?: listOf()).map {
+        return ((localStorage.trophies?.split(",")?.filter { it.isNotEmpty() })?: listOf()).map {
             Trophy.findById(it)
         }
     }
