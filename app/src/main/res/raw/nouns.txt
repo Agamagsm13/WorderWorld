@@ -61,6 +61,7 @@ database
 delation
 deletion
 delivery
+delight
 denim
 desert
 dessert
@@ -294,6 +295,7 @@ opportunity
 performance
 driver
 flight
+drizzle
 length
 magazine
 newspaper
@@ -349,6 +351,7 @@ depression
 imagination
 passion
 percentage
+distress
 resource
 setting
 agency
@@ -602,6 +605,7 @@ shirt
 speaker
 stranger
 surgery
+surgeon
 sympathy
 throat
 trainer
@@ -706,6 +710,7 @@ inside
 outside
 standard
 dairy
+daisy
 fitness
 exchange
 position
@@ -743,14 +748,17 @@ credit
 network
 north
 square
+squirrel
 attempt
 effect
 voice
 capital
 balloon
 challenge
+allergy
 friend
 brush
+bruise
 couple
 debate
 front
@@ -772,6 +780,7 @@ notice
 damage
 distance
 feeling
+fever
 savings
 staff
 sugar
@@ -809,6 +818,7 @@ weight
 background
 backpack
 carry
+carriage
 carrot
 factor
 fruit
@@ -829,6 +839,7 @@ party
 principle
 relative
 season
+sewing
 signal
 spirit
 street
@@ -973,6 +984,7 @@ document
 draft
 bundle
 tomato
+wound
 expert
 floor
 habit
@@ -990,6 +1002,7 @@ parrot
 request
 salary
 shame
+shelf
 shelter
 penguin
 silver
@@ -1046,6 +1059,7 @@ concert
 counter
 flower
 grill
+grief
 hockey
 grandfather
 grandson
@@ -1465,7 +1479,7 @@ beard
 garlic
 syrup
 butter
-blage
+butcher
 sword
 quiver
 leash
