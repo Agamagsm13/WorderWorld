@@ -35,6 +35,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_daily"
+        android:name="com.agamatech.worderworld.feature.daily.ui.LetsPlayDailyFragment"
+        tools:layout="@layout/fragment_lets_play_daily">
+
+        <action
+            android:id="@+id/daily_to_game"
+            app:destination="@id/nav_game" />
+    </fragment>
+
+    <fragment
         android:id="@+id/nav_game"
         android:name="com.agamatech.worderworld.feature.game.ui.GameFragment"
         tools:layout="@layout/fragment_game">

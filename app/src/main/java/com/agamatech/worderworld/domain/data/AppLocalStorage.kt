@@ -6,6 +6,7 @@ class AppLocalStorage(private val prefs: SharedPreferences) {
 
     object Keys {
         const val wordsGuessed = "wordsGuessedKey"
+        const val wordsGuessedRow = "wordsGuessedRowKey"
         const val intersCount = "intersCountKey"
         const val allWordsEnabled = "allWordsEnabledKey"
         const val maxLevel = "maxLevelKey"
@@ -17,6 +18,11 @@ class AppLocalStorage(private val prefs: SharedPreferences) {
         get() = prefs.getInt(Keys.wordsGuessed, 0)
         set(value) {
             prefs.edit().putInt(Keys.wordsGuessed, value).apply()
+        }
+    var wordsGuessedRow: Int
+        get() = prefs.getInt(Keys.wordsGuessedRow, 0)
+        set(value) {
+            prefs.edit().putInt(Keys.wordsGuessedRow, value).apply()
         }
     var maxLevel: Int
         get() = prefs.getInt(Keys.maxLevel, 1)

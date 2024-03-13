@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/grey_dark">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/bg_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@mipmap/bg_main"
+        android:scaleType="centerCrop"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pemanka"
+        android:textColor="@color/yellow"
+        android:text="@string/time_until_next_word"
+        app:layout_constraintBottom_toTopOf="@id/letters_count"
+        android:gravity="center"
+        android:textSize="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="40dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/letters_count"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pemanka"
+        android:textColor="@color/blue"
+        android:layout_marginHorizontal="20dp"
+        tools:text="19:45:19"
+        app:layout_constraintBottom_toTopOf="@id/start_button"
+        android:gravity="center"
+        android:textSize="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="40dp"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/start_button"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.7"
+        app:cardBackgroundColor="@color/grey_dark"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/yellow">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/get_word"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/get_daily_word"
+            android:textColor="@color/grey_light"
+            android:gravity="center"
+            android:fontFamily="@font/pemanka"
+            android:textSize="40sp" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            android:theme="@style/progressBarLime"
+            android:layout_gravity="center"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/words_guessed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/pemanka"
+        android:textColor="@color/yellow"
+        android:paddingHorizontal="20dp"
+        tools:text="@string/words_guessed_row"
+        app:layout_constraintTop_toBottomOf="@id/start_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.5"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:textSize="40dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

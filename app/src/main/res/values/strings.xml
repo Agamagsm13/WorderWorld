@@ -4,6 +4,7 @@
     <string name="store">Store</string>
     <string name="trophies">Trophies</string>
     <string name="levels_menu">Level mode</string>
+    <string name="daily_menu">Daily</string>
 
     <string name="best_score">Best score: %d</string>
 
@@ -22,12 +23,15 @@
     <string name="ok">OK</string>
     <string name="info">Info</string>
     <string name="words_guessed">Words guessed: %d</string>
+    <string name="words_guessed_row">Guessed words in a row: %d</string>
     <string name="max_level">Max level: %d</string>
     <string name="unlock_all_words_for">Unlock all words\nfor %s</string>
     <string name="unlock_mode">Unlock mode\nfor %s</string>
     <string name="letters_in_word">Letters in word:</string>
+    <string name="time_until_next_word">Time until next word:</string>
     <string name="level_mode">Level mode</string>
     <string name="get_word">Get Word</string>
+    <string name="get_daily_word">Get Daily\nWord</string>
     <string name="lets_start">Let\'s start</string>
     <string name="locked">Locked</string>
     <string name="level">Level %d</string>
