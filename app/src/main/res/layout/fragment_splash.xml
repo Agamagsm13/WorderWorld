@@ -158,7 +158,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewPrivacyPolicy"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:paddingHorizontal="4dp"
             android:paddingVertical="8dp"
             android:textColor="@color/lime"
@@ -166,14 +166,14 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:text="@string/terms_second_line"
             android:textColor="@color/lime"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewTermOfUse"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:paddingHorizontal="4dp"
             android:paddingVertical="8dp"
             android:text="@string/terms_of_use"

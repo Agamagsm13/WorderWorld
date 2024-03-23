@@ -46,30 +46,33 @@
         android:textSize="40dp"
         android:fontFamily="@font/pemanka"/>
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/info_button"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:elevation="0dp"
-        app:strokeColor="@color/lime"
-        app:strokeWidth="2dp"
-        app:cardCornerRadius="15dp"
-        app:cardBackgroundColor="@color/grey_dark"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="9dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/button_back"
         app:layout_constraintBottom_toBottomOf="@id/button_back"
         android:layout_marginEnd="20dp">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="i"
-            android:textColor="@color/lime"
-            android:textSize="20dp"
-            android:fontFamily="@font/pemanka"/>
-
-    </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="0dp"
+            app:strokeColor="@color/lime"
+            app:strokeWidth="2dp"
+            app:cardCornerRadius="24dp"
+            app:cardBackgroundColor="@color/grey_dark">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="i"
+                android:textColor="@color/lime"
+                android:textSize="20dp"
+                android:fontFamily="@font/pemanka"/>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/letters_6_layout"
